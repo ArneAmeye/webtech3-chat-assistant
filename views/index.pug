@@ -8,7 +8,13 @@ block content
           img.profpic(src="https://fakeimg.pl/75x75/" alt="profPic")
           h4 Wesley Wijsen
         h3 Dit is mijn bericht!
+        h5.timestamp Gisteren om 22u30
+        div.icons
+          img.icon#pen(src="https://fakeimg.pl/20x20/" alt="penIcon")
+          img.icon#trash(src="https://fakeimg.pl/20x20/" alt="trashIcon")
     div.messageSend
+      input#myMessage(type='text', placeholder='Your message' name='message')
+      input.btn.btn--send(type='submit' value='Send')
     div.sidebar
     //h1= title
     //p Welcome to #{title}
