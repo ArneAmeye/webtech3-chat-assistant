@@ -1,0 +1,11 @@
+.btn{
+    color: white;
+    background-color: $active;
+
+}
+
+.btn:hover{
+    background-color: darken($color: $active, $amount: 40%);
+    position: relative;
+    top: 1px;
+}
