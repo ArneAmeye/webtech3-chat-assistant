@@ -25,7 +25,11 @@ let go = function(server) {
                 //write this new poll to our MongoDB
                 let m = new messageModel();
                 m.message = data.message;
-                // => ###TODO### add more data to the message being saved in MongoDB (username, user_id, timestamp)
+                /*
+                m.username = data.username;
+                m.user_id = data.user_id;
+                m.timestamp = data.timestamp;
+                */
                 m.save();
             }
             
