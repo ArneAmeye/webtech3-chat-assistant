@@ -74,11 +74,35 @@ class Message{
             messageInput.value = "";
 
             //prevent default click action
-            e.preventDefault();
+            e.preventDefault(that);
+
+        });
+
+        //listen for user pressing ENTER on the message field
+        messageInput.addEventListener("keypress", function(e){
+            //check for ENTER key
+            let key = e.which || e.keyCode;
+            if (key === 13){
+                
+                //get value (message) from the inputfield and store it in a variable
+                let myMessage = messageInput.value;
+
+                //send the message over websocket
+                that.primus.write({
+                    "message": myMessage
+                });
+
+                //clear the chatbox (so we can send more messages!)
+                messageInput.value = "";
+
+                //prevent default the ENTER action
+                e.preventDefault();
+            }
 
         });
 
     }
+    
 
 }
 
