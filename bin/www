@@ -21,6 +21,10 @@ app.set('port', port);
 
 var server = http.createServer(app);
 
+//require onze live.js file, en roep de go functie/methode aan.
+var primus = require("../primus/live");
+primus.go(server);
+
 /**
  * Listen on provided port, on all network interfaces.
  */
