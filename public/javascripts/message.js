@@ -4,7 +4,8 @@ class Message{
 
     constructor(){
 
-        //Get chatbox input field and BTN
+        //Register DOM elements
+        const messagesContainer = document.querySelector(".messages");
         const messageInput = document.querySelector("#myMessage");
         const messageBtn = document.querySelector(".btn--send");
 
@@ -25,7 +26,34 @@ class Message{
         //primus on data listener ###TODO###
         this.primus.on("data", function(data){
             console.log(data);
+
             //if it data contains a message: we should create an element and append it to the chatbox!
+            if(data.message){
+                //create messageWrapper div and add it's class
+                let messageWrapper = document.createElement("div");
+                messageWrapper.classList.add("messageWrapper");
+
+                //use literal template to add different elements at once (instead of doing multiple createElements)
+                let messageTemplate = ` 
+                <div class="profile-block">
+                    <img class="profpic" src="https://fakeimg.pl/75x75/" alt="profPic">
+                    <h4>Username here</h4>
+                </div>
+
+                <h3>${data.message}</h3>
+                <h5 class="timestamp">Timestamp here</h5>
+
+                <div class="icons">
+                    <img class="icon" id="pen" src="https://fakeimg.pl/20x20/" alt="penIcon">
+                    <img class="icon" id="trash" src="https://fakeimg.pl/20x20/" alt="trashIcon">
+                </div>
+                `;
+                //add the chat template inside the messageContainer
+                messageWrapper.innerHTML = messageTemplate;
+
+                //finally append the messageWrapper to the messagesContainer
+                messagesContainer.appendChild(messageWrapper);
+            }
 
 
         });
@@ -36,7 +64,7 @@ class Message{
 
             //get value (message) from the inputfield and store it in a variable
             let myMessage = messageInput.value;
-            console.log(myMessage);
+
             //send the message over websocket
             that.primus.write({
                 "message": myMessage
