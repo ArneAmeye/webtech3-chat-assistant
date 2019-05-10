@@ -22,7 +22,7 @@ let go = function(server) {
 
             //check if incoming data in our websocket contains data for a message ( -> save new message)
             if(data.message){
-                //write this new poll to our MongoDB
+                //write this new message to our MongoDB
                 let m = new messageModel();
                 m.message = data.message;
                 /*
