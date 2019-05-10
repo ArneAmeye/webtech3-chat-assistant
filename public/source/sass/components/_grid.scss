@@ -1,0 +1,19 @@
+.grid{
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: auto 80px;
+}
+.grid--item-a{
+    grid-column-start: 1;
+    grid-column-end: 2;
+}
+.grid--item-b{
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 3;
+}
+.grid--item-c{
+    grid-row-start: 2;
+    grid-row-end: 3;
+}

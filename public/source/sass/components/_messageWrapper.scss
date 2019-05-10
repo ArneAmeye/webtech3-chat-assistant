@@ -1,0 +1,26 @@
+.messageWrapper{
+    position: relative;
+    border-bottom: 1px solid #000;
+    
+}
+.message--time{
+    position: absolute;
+    right: 25px;
+    top: 10px;
+}
+.iconsWrap{
+    position: absolute;
+    right: 25px;
+    bottom: 10px;
+}
+.icons{
+    width: 25px;
+    height: 25px;
+    margin: 10px;
+}
+.messageSend{
+    //width: 70%;
+    //height: 60px;
+    //position: fixed;
+    bottom: 0;
+}
