@@ -1,3 +1,5 @@
+const messageModel = require('../models/messageModel');
+
 //GET callback for messages (ALL or by USER)
 let get = (req, res, next) => {
 
@@ -29,10 +31,18 @@ let getId = (req, res, next) => {
 
 //POST callback for adding a message
 let post = (req, res, next) => {
-    let user = req.body.message.user;
+    let username = req.body.username;
+
+    //write this new message to our MongoDB
+    let m = new messageModel();
+    m.message = req.body.message;
+    m.username = req.body.username;
+    m.user_id = req.body.user_id;
+    m.save();
+
     res.json({
         "status": "success",
-        "message": "POSTING a new message for user: " + user
+        "message": "POSTING a new message for user: " + username
     })
 }
 
