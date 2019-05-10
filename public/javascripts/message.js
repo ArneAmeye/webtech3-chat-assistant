@@ -65,9 +65,31 @@ class Message{
             //get value (message) from the inputfield and store it in a variable
             let myMessage = messageInput.value;
 
-            //send the message over websocket
-            that.primus.write({
-                "message": myMessage
+            //send message over our API
+            fetch('/api/v1/messages', {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json, text/plain, */*',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "message": myMessage,
+                    "username": "Arne",
+                    "user_id": 99
+                })
+            })
+            .then(res=>res.json())
+            .then(res => {
+                
+                //check if message posted successfully
+               if(res['status'] == "success"){
+
+                    //send the message over websocket
+                    that.primus.write({
+                        "message": myMessage
+                    });
+               }
+
             });
 
             //clear the chatbox (so we can send more messages!)
@@ -87,9 +109,31 @@ class Message{
                 //get value (message) from the inputfield and store it in a variable
                 let myMessage = messageInput.value;
 
-                //send the message over websocket
-                that.primus.write({
-                    "message": myMessage
+                //send message over our API
+                fetch('/api/v1/messages', {
+                    method: 'post',
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        "message": myMessage,
+                        "username": "Arne",
+                        "user_id": 99
+                    })
+                })
+                .then(res=>res.json())
+                .then(res => {
+                    
+                    //check if message posted successfully
+                    if(res['status'] == "success"){
+
+                        //send the message over websocket
+                        that.primus.write({
+                            "message": myMessage
+                        });
+                    }
+
                 });
 
                 //clear the chatbox (so we can send more messages!)
