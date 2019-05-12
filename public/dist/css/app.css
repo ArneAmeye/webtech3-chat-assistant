@@ -1,1 +1,240 @@
-.container{width:100vw;height:100vh}.messages{background-color:#2C293C;color:#fff}.messageSend{width:100%;height:100%;background-color:#585279;padding-top:20px}.sidebar{background-color:#C4C4C4}.btn{width:90px;height:40px;color:white;background-color:#5293A1}.btn:hover{background-color:#0d181a;position:relative;top:1px}.input{width:50em;height:40px;margin:0 15px}.link{color:black;text-decoration:none;text-align:center}*{margin:0;padding:0;box-sizing:border-box}.title{font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;font-size:1em}.title--name{font-size:0.9em}.title--message{font-size:1.1em}.title--time{font-size:0.7em}.title--name-me{font-size:1.1em}.title--friends{font-size:1.5em;margin-top:15px;margin-left:15px}.flex{display:flex}.flex--container{justify-content:flex-start}.flex--item{align-self:center}.grid{display:grid}.grid--content{grid-template-columns:70% 30%;grid-template-rows:auto 80px}.grid--content-item-a{grid-column-start:1;grid-column-end:2}.grid--content-item-b{grid-column-start:2;grid-column-end:3;grid-row-start:1;grid-row-end:3}.grid--content-item-c{grid-row-start:2;grid-row-end:3}.grid--sidebar{grid-template-rows:1% 20% 1% 73% 1%}.grid--sidebar-item-a{grid-row-start:2;grid-row-end:3}.grid--sidebar-item-b{grid-row-start:4;grid-row-end:5}.grid--profile{grid-template-columns:30% 40% 30%;grid-template-rows:auto 10px auto}.grid--profile-item-a{grid-column-start:1;grid-column-end:2;grid-row-start:1;grid-row-end:4;justify-self:center;align-self:center}.grid--profile-item-b{grid-column-start:2;grid-column-end:3;grid-row-start:1;grid-row-end:2;justify-self:start;align-self:end}.grid--profile-item-c{grid-column-start:2;grid-column-end:3;grid-row-start:3;grid-row-end:4;justify-self:start;align-self:start}.grid--profile-item-d{grid-column-start:3;grid-column-end:4;grid-row-start:1;grid-row-end:4;justify-self:center;align-self:center}.profile{padding:10px;margin-right:20px}.profpic{margin:10px;border-radius:50%}.profile--me{width:95%;height:10em;background-color:#E5E5E5;padding:0;margin:1em auto}.profile--friends{width:95%;border:1px solid black;margin:1em auto}.messageWrapper{position:relative;border-bottom:1px solid #E5E5E5}.message--time{position:absolute;right:25px;top:10px}.iconsWrap{position:absolute;right:25px;bottom:10px}.icons{width:25px;height:25px;margin:10px}.messageSend{bottom:0}
+.container {
+  width: 100vw;
+  height: 100vh;
+}
+
+.messages {
+  background-color: #2C293C;
+  color: #fff;
+  overflow-y: auto;
+}
+
+.messageSend {
+  width: 100%;
+  height: 100%;
+  background-color: #585279;
+  padding-top: 20px;
+}
+
+.sidebar {
+  background-color: #C4C4C4;
+}
+
+.online {
+  overflow-y: auto;
+}
+
+.btn {
+  width: 90px;
+  height: 40px;
+  color: white;
+  background-color: #5293A1;
+  border: none;
+}
+
+.btn:hover {
+  background-color: #0d181a;
+  position: relative;
+  top: 1px;
+}
+
+.input {
+  width: 50em;
+  height: 40px;
+  margin-left: 15px;
+  padding: 0em 0.5em;
+}
+
+.link {
+  color: black;
+  text-decoration: none;
+  text-align: center;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.title {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1em;
+}
+
+.title--name {
+  font-size: 0.9em;
+}
+
+.title--message {
+  font-size: 1.1em;
+}
+
+.title--time {
+  font-size: 0.7em;
+}
+
+.title--name-me {
+  font-size: 1.1em;
+}
+
+.title--friends {
+  font-size: 1.5em;
+  margin-top: 15px;
+  margin-left: 15px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex--container {
+  justify-content: flex-start;
+}
+
+.flex--item {
+  align-self: center;
+}
+
+.grid {
+  display: grid;
+}
+
+.grid--content {
+  grid-template-columns: 70% 30%;
+  grid-template-rows: auto 80px;
+}
+
+.grid--content-item-a {
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
+
+.grid--content-item-b {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+.grid--content-item-c {
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.grid--sidebar {
+  grid-template-rows: 1% 20% 1% 73% 1%;
+}
+
+.grid--sidebar-item-a {
+  grid-row-start: 2;
+  grid-row-end: 3;
+}
+
+.grid--sidebar-item-b {
+  grid-row-start: 4;
+  grid-row-end: 5;
+}
+
+.grid--profile {
+  grid-template-columns: 30% 40% 30%;
+  grid-template-rows: auto 10px auto;
+}
+
+.grid--profile-item-a {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  justify-self: center;
+  align-self: center;
+}
+
+.grid--profile-item-b {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  justify-self: start;
+  align-self: end;
+}
+
+.grid--profile-item-c {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 3;
+  grid-row-end: 4;
+  justify-self: start;
+  align-self: start;
+}
+
+.grid--profile-item-d {
+  grid-column-start: 3;
+  grid-column-end: 4;
+  grid-row-start: 1;
+  grid-row-end: 4;
+  justify-self: center;
+  align-self: center;
+}
+
+.profile {
+  padding: 10px;
+  margin-right: 20px;
+}
+
+.profpic {
+  margin: 10px;
+  border-radius: 50%;
+}
+
+.profile--me {
+  width: 95%;
+  background-color: #E5E5E5;
+  padding: 0;
+  margin: 1em auto 0em auto;
+}
+
+.profile--friends {
+  width: 95%;
+  border: 1px solid black;
+  margin: 1em auto;
+}
+
+.messageWrapper {
+  position: relative;
+  border-bottom: 1px solid #E5E5E5;
+}
+
+.message--time {
+  position: absolute;
+  right: 25px;
+  top: 10px;
+}
+
+.iconsWrap {
+  position: absolute;
+  right: 25px;
+  bottom: 10px;
+}
+
+.icons {
+  width: 25px;
+  height: 25px;
+  margin: 10px;
+  padding: 0.2em;
+  border-radius: 100%;
+}
+
+.icons--pen {
+  background-color: #fff;
+}
+
+.icons--trash {
+  background-color: indianred;
+}
+
+.messageSend {
+  bottom: 0;
+}
+
+/*# sourceMappingURL=app.css.map */

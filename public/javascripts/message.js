@@ -46,8 +46,8 @@ class Message{
                 <h5 class="message--time title title--time flex--item">Timestamp here</h5>
 
                 <div class="iconsWrap flex--item">
-                    <img class="icons icons--pen" src="https://fakeimg.pl/20x20/" alt="penIcon">
-                    <img class="icons icons--trash" src="https://fakeimg.pl/20x20/" alt="trashIcon">
+                    <img class="icons icons--pen" src="../images/edit.svg" alt="penIcon">
+                    <img class="icons icons--trash" src="../images/delete.svg" alt="trashIcon">
                 </div>
                 `;
                 //add the chat template inside the messageContainer
@@ -186,8 +186,8 @@ function getAllMessages(){
                 <h5 class="message--time title title--time flex--item">Timestamp here</h5>
 
                 <div class="iconsWrap flex--item">
-                    <img class="icons icons--pen" src="https://fakeimg.pl/20x20/" alt="penIcon">
-                    <img class="icons icons--trash" src="https://fakeimg.pl/20x20/" alt="trashIcon">
+                    <img class="icons icons--pen" src="../images/edit.svg" alt="penIcon">
+                    <img class="icons icons--trash" src="../images/delete.svg" alt="trashIcon">
                 </div>
                 `;
                 //add the chat template inside the messageContainer

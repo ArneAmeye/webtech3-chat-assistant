@@ -17,7 +17,18 @@
     width: 25px;
     height: 25px;
     margin: 10px;
+    padding: 0.2em;
+    border-radius: 100%;
 }
+
+.icons--pen{
+    background-color: #fff;
+}
+
+.icons--trash{
+    background-color: indianred;
+}
+
 .messageSend{
     //width: 70%;
     //height: 60px;

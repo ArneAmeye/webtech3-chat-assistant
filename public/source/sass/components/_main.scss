@@ -5,6 +5,7 @@
 .messages{
     background-color: $dark;
     color: #fff;
+    overflow-y: auto;
 }
 .messageSend{
     width: 100%;
@@ -16,4 +17,8 @@
     // border: 1px solid black;
     background-color: $lightGray;
     //height: 100vh;
+}
+
+.online{
+    overflow-y: auto;
 }
