@@ -1,0 +1,19 @@
+.container{
+    width: 100vw;
+    height: 100vh;
+}
+.messages{
+    background-color: $dark;
+    color: #fff;
+}
+.messageSend{
+    width: 100%;
+    height: 100%;
+    background-color: lighten($color: $dark, $amount: 20%);
+    padding-top: 20px;
+}
+.sidebar{
+    // border: 1px solid black;
+    background-color: $lightGray;
+    //height: 100vh;
+}

@@ -1,21 +1,40 @@
 extends layout
 
 block content
-  div.container
-    div.messages
-      div.messageWrapper
-        div.profile-block
-          img.profpic(src="https://fakeimg.pl/75x75/" alt="profPic")
-          h4 Wesley Wijsen
-        h3 Dit is mijn bericht!
-        h5.timestamp Gisteren om 22u30
-        div.icons
-          img.icon#pen(src="https://fakeimg.pl/20x20/" alt="penIcon")
-          img.icon#trash(src="https://fakeimg.pl/20x20/" alt="trashIcon")
-    div.messageSend
-      input#myMessage(type='text', placeholder='Your message' name='message')
+  div.container.grid.grid--content
+    div.messages.grid--item.grid--content-item-a
+      div.messageWrapper.flex.flex--container
+        div.profile.flex.flex--container
+          img.profpic.flex--item(src="https://api.adorable.io/avatars/75/abott@adorable.png" alt="profPic")
+          h4.title.title--name.flex--item Wesley Wijsen
+        h3.message.title.title--message.flex--item Dit is mijn bericht!
+        h5.message--time.title.title--time.flex--item Gisteren om 22u30
+        div.iconsWrap.flex--item
+          img.icons.icons--pen(src="https://fakeimg.pl/20x20/" alt="penIcon")
+          img.icons.icons--trash(src="https://fakeimg.pl/20x20/" alt="trashIcon")
+    div.sidebar.grid.grid--sidebar.grid--item.grid--content-item-b
+      div.profile.profile--me.grid.grid--profile.grid--sidebar-item-a
+        img.profpic.profpic--me.grid--profile-item-a(src="https://api.adorable.io/avatars/85/abott@adorable.png" alt="profPic")
+        h4.title.title--name-me.grid--profile-item-b Wesley Wijsen
+        a.link.title.grid--profile-item-c(href="#") Edit profile
+        input.btn.btn--logout.grid--profile-item-d(type='submit' value='Log out')
+      div.online.grid--sidebar-item-b
+
+        h2.title.title--friends.flex--item Online friends
+        div.profile.profile--friends.flex.flex--container
+          img.profpic.flex--item(src="https://api.adorable.io/avatars/75/abott@adorable.png" alt="profPic")
+          h4.title.title--name.flex--item Arne Ameye
+        div.profile.profile--friends.flex.flex--container
+          img.profpic.flex--item(src="https://api.adorable.io/avatars/75/abott@adorable.png" alt="profPic")
+          h4.title.title--name.flex--item Arne Ameye
+        div.profile.profile--friends.flex.flex--container
+          img.profpic.flex--item(src="https://api.adorable.io/avatars/75/abott@adorable.png" alt="profPic")
+          h4.title.title--name.flex--item Arne Ameye
+          
+    div.messageSend.grid--item.grid--content-item-a
+      input.input.input--message#myMessage(type='text', placeholder='Your message' name='message')
       input.btn.btn--send(type='submit' value='Send')
-    div.sidebar
+    
     //h1= title
     //p Welcome to #{title}
 
