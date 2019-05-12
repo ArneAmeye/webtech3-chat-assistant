@@ -37,17 +37,17 @@ class Message{
 
                 //use literal template to add different elements at once (instead of doing multiple createElements)
                 let messageTemplate = ` 
-                <div class="profile-block">
-                    <img class="profpic" src="https://fakeimg.pl/75x75/" alt="profPic">
-                    <h4>Username here</h4>
+                <div class="profile flex flex--container">
+                    <img class="profpic flex--item" src="https://fakeimg.pl/75x75/" alt="profPic">
+                    <h4 class="title title--name flex--item">Username here</h4>
                 </div>
 
-                <h3>${data.message}</h3>
-                <h5 class="timestamp">Timestamp here</h5>
+                <h3 class="message title title--message flex--item">${data.message}</h3>
+                <h5 class="message--time title title--time flex--item">Timestamp here</h5>
 
-                <div class="icons">
-                    <img class="icon" id="pen" src="https://fakeimg.pl/20x20/" alt="penIcon">
-                    <img class="icon" id="trash" src="https://fakeimg.pl/20x20/" alt="trashIcon">
+                <div class="iconsWrap flex--item">
+                    <img class="icons icons--pen" src="https://fakeimg.pl/20x20/" alt="penIcon">
+                    <img class="icons icons--trash" src="https://fakeimg.pl/20x20/" alt="trashIcon">
                 </div>
                 `;
                 //add the chat template inside the messageContainer
@@ -152,6 +152,8 @@ class Message{
 
 }
 
+
+//GET all messages via the API
 function getAllMessages(){
     fetch('/api/v1/messages', {
         method: 'get',
@@ -165,7 +167,36 @@ function getAllMessages(){
         console.log(res);
         //check if message posted successfully
        if(res['status'] == "success"){
-            console.log("api fetch success");
+
+            //loop over the messages to add them into the UI
+            for(i = 0; i < res.data.length; i++){
+            
+                //create messageWrapper div and add it's class
+                let messageWrapper = document.createElement("div");
+                messageWrapper.classList.add("messageWrapper","flex", "flex--container");
+
+                //use literal template to add different elements at once (instead of doing multiple createElements)
+                let messageTemplate = ` 
+                <div class="profile flex flex--container">
+                    <img class="profpic flex--item" src="https://fakeimg.pl/75x75/" alt="profPic">
+                    <h4 class="title title--name flex--item">${res.data[i].username}</h4>
+                </div>
+
+                <h3 class="message title title--message flex--item">${res.data[i].message}</h3>
+                <h5 class="message--time title title--time flex--item">Timestamp here</h5>
+
+                <div class="iconsWrap flex--item">
+                    <img class="icons icons--pen" src="https://fakeimg.pl/20x20/" alt="penIcon">
+                    <img class="icons icons--trash" src="https://fakeimg.pl/20x20/" alt="trashIcon">
+                </div>
+                `;
+                //add the chat template inside the messageContainer
+                messageWrapper.innerHTML = messageTemplate;
+
+                //finally append the messageWrapper to the messagesContainer
+                const messagesContainer = document.querySelector(".messages");
+                messagesContainer.appendChild(messageWrapper);
+            }
        }
 
     });
