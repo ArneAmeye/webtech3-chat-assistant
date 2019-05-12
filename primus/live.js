@@ -19,19 +19,6 @@ let go = function(server) {
         spark.on("data", function(data){
             //write data back to all connected users
             primus.write(data);
-
-            //check if incoming data in our websocket contains data for a message ( -> save new message)
-            if(data.message){
-                //write this new message to our MongoDB
-                let m = new messageModel();
-                m.message = data.message;
-                /*
-                m.username = data.username;
-                m.user_id = data.user_id;
-                m.timestamp = data.timestamp;
-                */
-                m.save();
-            }
             
             //check if user data received to register a user??
 

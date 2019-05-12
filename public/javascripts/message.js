@@ -33,7 +33,7 @@ class Message{
             if(data.message){
                 //create messageWrapper div and add it's class
                 let messageWrapper = document.createElement("div");
-                messageWrapper.classList.add("messageWrapper");
+                messageWrapper.classList.add("messageWrapper", "flex", "flex--container");
 
                 //use literal template to add different elements at once (instead of doing multiple createElements)
                 let messageTemplate = ` 
