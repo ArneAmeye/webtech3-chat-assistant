@@ -4,6 +4,8 @@ class Message{
 
     constructor(){
 
+        getAllMessages();
+
         //Register DOM elements
         const messagesContainer = document.querySelector(".messages");
         const messageInput = document.querySelector("#myMessage");
@@ -148,6 +150,25 @@ class Message{
     }
     
 
+}
+
+function getAllMessages(){
+    fetch('/api/v1/messages', {
+        method: 'get',
+        headers: {
+            'Accept': 'application/json, text/plain, */*',
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(res=>res.json())
+    .then(res => {
+        console.log(res);
+        //check if message posted successfully
+       if(res['status'] == "success"){
+            console.log("api fetch success");
+       }
+
+    });
 }
 
 let message = new Message();

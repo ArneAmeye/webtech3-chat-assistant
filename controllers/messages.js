@@ -6,6 +6,7 @@ let get = (req, res, next) => {
     //If there is a query string for a specific user, then GET messages for USERNAME
     if( req.query.user){
         let username = req.query.user;
+
         res.json({
             "status": "success",
             "message": "GETTING messages for USER: " + username
@@ -13,10 +14,17 @@ let get = (req, res, next) => {
     }
     else{
         //If no query string, get ALL messages
-        res.json({
-            "status": "success",
-            "message": "GETTING messages"
-        })
+        messageModel.find({}, (err, docs) =>{
+            if(!err){
+                res.json({
+                    "status": "success",
+                    "data": docs
+                })
+            }
+        });
+        
+        
+        
     }
 }
 
@@ -38,12 +46,15 @@ let post = (req, res, next) => {
     m.message = req.body.message;
     m.username = req.body.username;
     m.user_id = req.body.user_id;
-    m.save();
+    m.save((err, doc) =>{
+        if(!err){
+            res.json({
+                "status": "success",
+                "message": doc
+            });
+        }
+    });
 
-    res.json({
-        "status": "success",
-        "message": "POSTING a new message for user: " + username
-    })
 }
 
 //PUT callback for updating a message by it's ID
