@@ -8,6 +8,14 @@ let get = (req, res, next) => {
         let user_id = req.query.user_id;
         //find all messages for the user_id
         messageModel.find({user_id: user_id}, (err, docs) =>{
+            //handle error if there is any (don't block the thread!)
+            if( err){
+                res.json({
+                    "status": "error",
+                    "message": err.message
+                });
+            }
+            //if no errors, go ahead and do your job!
             if(!err){
                 res.json({
                     "status": "success",
@@ -19,6 +27,14 @@ let get = (req, res, next) => {
     else{
         //If no query string, get ALL messages
         messageModel.find({}, (err, docs) =>{
+            //handle error if there is any (don't block the thread!)
+            if( err){
+                res.json({
+                    "status": "error",
+                    "message": err.message
+                });
+            }
+            //if no errors, go ahead and do your job!
             if(!err){
                 res.json({
                     "status": "success",
@@ -38,6 +54,14 @@ let getId = (req, res, next) => {
     let messageId = req.params.id;
     //search the specific message by it's id
     messageModel.findById(messageId, (err, docs) =>{
+        //handle error if there is any (don't block the thread!)
+        if( err){
+            res.json({
+                "status": "error",
+                "message": err.message
+            });
+        }
+        //if no errors, go ahead and do your job!
         if(!err){
             res.json({
                 "status": "success",
@@ -57,6 +81,14 @@ let post = (req, res, next) => {
     m.username = req.body.username;
     m.user_id = req.body.user_id;
     m.save((err, doc) =>{
+        //handle error if there is any (don't block the thread!)
+        if( err){
+            res.json({
+                "status": "error",
+                "message": err.message
+            });
+        }
+        //if no errors, go ahead and do your job!
         if(!err){
             res.json({
                 "status": "success",
@@ -73,6 +105,14 @@ let put = (req, res, next) => {
     let updatedMessage = req.body.message;
     //search the specific message by it's id and update it
     messageModel.findByIdAndUpdate(messageId,{ $set: { message: updatedMessage }}, {new: true}, (err, docs) =>{
+        //handle error if there is any (don't block the thread!)
+        if( err){
+            res.json({
+                "status": "error",
+                "message": err.message
+            });
+        }
+        //if no errors, go ahead and do your job!
         if(!err){
             res.json({
                 "status": "success",
@@ -87,6 +127,14 @@ let del = (req, res, next) => {
     let messageId = req.params.id;
     //find a message by ID and delete it
     messageModel.findByIdAndDelete(messageId, (err, docs) =>{
+        //handle error if there is any (don't block the thread!)
+        if( err){
+            res.json({
+                "status": "error",
+                "message": err.message
+            });
+        }
+        //if no errors, go ahead and do your job!
         if(!err){
             res.json({
                 "status": "success",

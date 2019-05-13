@@ -3,9 +3,18 @@ let mongoose = require('mongoose');
 //Setup a schema for storing the poll question, answers and votes
 let Schema = mongoose.Schema;
 let messageSchema = new Schema({
-  message: String,
-  username: String,
-  user_id: Number,
+  message: {
+    type: String,
+    required: true
+  },
+  username: {
+    type: String,
+    required: true
+  },
+  user_id: {
+    type: Number,
+    required: true
+  },
   timestamp: String
 });
 
