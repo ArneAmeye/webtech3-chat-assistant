@@ -34,12 +34,14 @@ class Message{
                 //create messageWrapper div and add it's class
                 let messageWrapper = document.createElement("div");
                 messageWrapper.classList.add("messageWrapper", "flex", "flex--container");
+                //set data (id) of message
+                messageWrapper.dataset.id = data.id;
 
                 //use literal template to add different elements at once (instead of doing multiple createElements)
                 let messageTemplate = ` 
                 <div class="profile flex flex--container">
                     <img class="profpic flex--item" src="https://fakeimg.pl/75x75/" alt="profPic">
-                    <h4 class="title title--name flex--item">Username here</h4>
+                    <h4 class="title title--name flex--item" data-user_id="${data.user_id}">${data.username}</h4>
                 </div>
 
                 <h3 class="message title title--message flex--item">${data.message}</h3>
@@ -88,7 +90,10 @@ class Message{
 
                     //send the message over websocket
                     that.primus.write({
-                        "message": myMessage
+                        "message": myMessage,
+                        "username": res.message.username,
+                        "user_id": res.message.user_id,
+                        "id": res.message._id
                     });
                }
 
@@ -132,7 +137,10 @@ class Message{
 
                         //send the message over websocket
                         that.primus.write({
-                            "message": myMessage
+                            "message": myMessage,
+                            "username": res.message.username,
+                            "user_id": res.message.user_id,
+                            "id": res.message._id
                         });
                     }
 
@@ -174,12 +182,14 @@ function getAllMessages(){
                 //create messageWrapper div and add it's class
                 let messageWrapper = document.createElement("div");
                 messageWrapper.classList.add("messageWrapper","flex", "flex--container");
+                //set data (id) of the message
+                messageWrapper.dataset.id = res.data[i]._id;
 
                 //use literal template to add different elements at once (instead of doing multiple createElements)
                 let messageTemplate = ` 
                 <div class="profile flex flex--container">
                     <img class="profpic flex--item" src="https://fakeimg.pl/75x75/" alt="profPic">
-                    <h4 class="title title--name flex--item">${res.data[i].username}</h4>
+                    <h4 class="title title--name flex--item" data-user_id="${res.data[i].user_id}">${res.data[i].username}</h4>
                 </div>
 
                 <h3 class="message title title--message flex--item">${res.data[i].message}</h3>
