@@ -21,16 +21,44 @@
 }
 
 .grid--sidebar{
-    grid-template-rows: 1% 20% 1% 73% 1%;
+    grid-template-rows: 1% 27% 1% 70% 1%;
 }
 .grid--sidebar-item-a{
     grid-row-start: 2;
     grid-row-end: 3;
-    
 }
 .grid--sidebar-item-b{
     grid-row-start: 4;
     grid-row-end: 5;
+}
+
+.grid--login{
+    grid-template-columns: 100%;
+    grid-template-rows: 6% 20% 6% 20% 30% 10% 6%;
+}
+.grid--login-item-a{
+    grid-row-start: 2;
+    grid-row-end: 3;
+    justify-self: center;
+    align-self: center;
+}
+.grid--login-item-b{
+    grid-row-start: 4;
+    grid-row-end: 5;
+    justify-self: center;
+    align-self: center;
+}
+.grid--login-item-c{
+    grid-row-start: 5;
+    grid-row-end: 6;
+    justify-self: center;
+    align-self: center;
+}
+.grid--login-item-d{
+    grid-row-start: 6;
+    grid-row-end: 7;
+    justify-self: center;
+    align-self: baseline;
 }
 
 .grid--profile{

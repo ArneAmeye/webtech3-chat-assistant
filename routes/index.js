@@ -7,6 +7,10 @@ var messageController = require('../controllers/messages');
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'ChatApp' });
 });
+/* GET sign up page. */
+router.get('/signup', function(req, res, next) {
+  res.render('signup', { title: 'ChatApp - Sign Up' });
+});
 
 //GET messages (ALL or by USER query string)
 router.get('/api/v1/messages' , messageController.get);

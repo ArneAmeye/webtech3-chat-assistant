@@ -5,7 +5,9 @@
     background-color: $active;
     border: none;
 }
-
+.btn--login{
+    width: 95%;
+}
 .btn:hover{
     background-color: darken($color: $active, $amount: 40%);
     position: relative;
