@@ -16,6 +16,7 @@ app.set('view engine', 'pug');
 
 //mongoose setup
 const mongoose = require('mongoose');
+mongoose.set('useCreateIndex', true);
 mongoose.connect("mongodb+srv://Arcode:ZK2JAtB777Xxa3kP@chatapp-kv2fx.gcp.mongodb.net/ChatApp?retryWrites=true", {useNewUrlParser: true});
 
 app.use(logger('dev'));
