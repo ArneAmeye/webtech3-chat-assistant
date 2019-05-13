@@ -3,7 +3,10 @@ const User = require('../models/User');
 const signup = async (req,res,next)=>{
     let username = req.body.username; // UI of postman
     let password = req.body.password; // UI of postman
-    const user = new User({username: username});
+    
+    const user = new User({
+        username: username
+    });
         await user.setPassword(password);
         await user.save().then(result =>{
             res.json({
@@ -17,7 +20,8 @@ const signup = async (req,res,next)=>{
 };
 
 const login = async (req,res,next) =>{
-    const { user } = await User.authenticate()(req.body.username, req.body.password).then(result =>{
+    
+    const user = await User.authenticate()(req.body.username, req.body.password).then(result =>{
         res.json({
             "status": "success",
             "data": {

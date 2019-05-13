@@ -7,9 +7,15 @@ var messageController = require('../controllers/messages');
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'ChatApp' });
 });
-/* GET sign up page. */
-router.get('/signup', function(req, res, next) {
-  res.render('signup', { title: 'ChatApp - Sign Up' });
+
+/* GET log in page. */
+router.get('/login', function(req, res, next) {
+  res.render('login', { title: 'ChatApp - Log In' });
+});
+
+/* GET register page. */
+router.get('/register', function(req, res, next) {
+  res.render('register', { title: 'ChatApp - Register' });
 });
 
 //GET messages (ALL or by USER query string)
@@ -26,6 +32,7 @@ router.put('/api/v1/messages/:id', messageController.put);
 
 //DELETE a message by ID
 router.delete('/api/v1/messages/:id', messageController.del);
+
 
 
 module.exports = router;
