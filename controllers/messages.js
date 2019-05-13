@@ -4,13 +4,17 @@ const messageModel = require('../models/messageModel');
 let get = (req, res, next) => {
 
     //If there is a query string for a specific user, then GET messages for USERNAME
-    if( req.query.user){
-        let username = req.query.user;
-
-        res.json({
-            "status": "success",
-            "message": "GETTING messages for USER: " + username
-        })
+    if( req.query.user_id){
+        let user_id = req.query.user_id;
+        //find all messages for the user_id
+        messageModel.find({user_id: user_id}, (err, docs) =>{
+            if(!err){
+                res.json({
+                    "status": "success",
+                    "data": docs
+                })
+            }
+        });
     }
     else{
         //If no query string, get ALL messages
@@ -30,11 +34,17 @@ let get = (req, res, next) => {
 
 //GET callback for getting a SPECIFIC message by it's ID
 let getId = (req, res, next) => {
+    //get the message id from the parameter in the request
     let messageId = req.params.id;
-    res.json({
-        "status": "success",
-        "message": "GETTING message with ID: " + messageId
-    })
+    //search the specific message by it's id
+    messageModel.findById(messageId, (err, docs) =>{
+        if(!err){
+            res.json({
+                "status": "success",
+                "data": docs
+            })
+        }
+    });
 }
 
 //POST callback for adding a message
@@ -60,19 +70,30 @@ let post = (req, res, next) => {
 //PUT callback for updating a message by it's ID
 let put = (req, res, next) => {
     let messageId = req.params.id;
-    res.json({
-        "status": "success",
-        "message": "UPDATING a message with ID: " + messageId
-    })
+    let updatedMessage = req.body.message;
+    //search the specific message by it's id and update it
+    messageModel.findByIdAndUpdate(messageId,{ $set: { message: updatedMessage }}, {new: true}, (err, docs) =>{
+        if(!err){
+            res.json({
+                "status": "success",
+                "data": docs
+            })
+        }
+    });
 }
 
 //DELETE callback for deleting a message by it's ID
 let del = (req, res, next) => {
     let messageId = req.params.id;
-    res.json({
-        "status": "success",
-        "message": "DELETING a message with ID: " + messageId
-    })
+    //find a message by ID and delete it
+    messageModel.findByIdAndDelete(messageId, (err, docs) =>{
+        if(!err){
+            res.json({
+                "status": "success",
+                "data": docs
+            })
+        }
+    });
 }
 
 
