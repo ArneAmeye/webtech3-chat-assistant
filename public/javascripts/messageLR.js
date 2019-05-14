@@ -3,11 +3,7 @@
 class Message{
 
     constructor(){
-        //check if user has a token
-        if(localStorage.getItem('token') == null){
-            document.location.href = "http://localhost:3000/login";
-        }
-
+        
         //show all messages
         getAllMessages();
 
@@ -67,100 +63,7 @@ class Message{
 
         });
 
-
-        //listen for user clicking on the send message btn
-        messageBtn.addEventListener("click", function(e){
-
-            //get value (message) from the inputfield and store it in a variable
-            let myMessage = messageInput.value;
-
-            //send message over our API
-            fetch('/api/v1/messages', {
-                method: 'post',
-                headers: {
-                    'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer' + localStorage.getItem('token')
-                },
-                body: JSON.stringify({
-                    "message": myMessage,
-                    "username": "Arne",
-                    "user_id": 99
-                })
-            })
-            .then(res=>res.json())
-            .then(res => {
-                
-                //check if message posted successfully
-               if(res['status'] == "success"){
-
-                    //send the message over websocket
-                    that.primus.write({
-                        "message": myMessage,
-                        "username": res.message.username,
-                        "user_id": res.message.user_id,
-                        "id": res.message._id
-                    });
-               }
-
-            });
-
-            //clear the chatbox (so we can send more messages!)
-            messageInput.value = "";
-
-            //prevent default click action
-            e.preventDefault(that);
-
-        });
-
-        //listen for user pressing ENTER on the message field
-        messageInput.addEventListener("keypress", function(e){
-            //check for ENTER key
-            let key = e.which || e.keyCode;
-            if (key === 13){
-                
-                //get value (message) from the inputfield and store it in a variable
-                let myMessage = messageInput.value;
-
-                //send message over our API
-                fetch('/api/v1/messages', {
-                    method: 'post',
-                    headers: {
-                        'Accept': 'application/json, text/plain, */*',
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer' + localStorage.getItem('token')
-                    },
-                    body: JSON.stringify({
-                        "message": myMessage,
-                        "username": "Arne",
-                        "user_id": 99
-                    })
-                })
-                .then(res=>res.json())
-                .then(res => {
-                    
-                    //check if message posted successfully
-                    if(res['status'] == "success"){
-
-                        //send the message over websocket
-                        that.primus.write({
-                            "message": myMessage,
-                            "username": res.message.username,
-                            "user_id": res.message.user_id,
-                            "id": res.message._id
-                        });
-                    }
-
-                });
-
-                //clear the chatbox (so we can send more messages!)
-                messageInput.value = "";
-
-                //prevent default the ENTER action
-                e.preventDefault();
-            }
-
-        });
+        
 
     }
     

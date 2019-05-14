@@ -15,10 +15,11 @@ let loginBtn = document.querySelector('.btn--login').addEventListener("click", (
         return response.json();
     }).then(json =>{
         if(json.status === "success"){
-            console.log("gelukt")
-            // let feedback = document.querySelector('.alert');
-            // feedback.textContent = "Register is complete!";
-            // feedback.classList.remove('hidden');
+            let token = json.data.token;
+            localStorage.setItem("token", token);
+            window.location.href = "http://localhost:3000";
+        }else{
+            alert("login failed");
         }
     })
 });
