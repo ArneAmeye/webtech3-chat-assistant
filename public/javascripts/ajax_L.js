@@ -1,8 +1,7 @@
 let loginBtn = document.querySelector('.btn--login').addEventListener("click", ()=>{
     let username = document.querySelector('#myUsername').value;
     let password = document.querySelector('#myPassword').value;
-    console.log(username)
-    console.log(password)
+    
     fetch('http://localhost:3000/users/login', {
         method: "post",
         headers: {
