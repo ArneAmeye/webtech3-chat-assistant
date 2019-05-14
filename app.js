@@ -6,8 +6,9 @@ var logger = require('morgan');
 const cors = require('cors');
 const passport = require('./passport/passport')
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
+const usersRouter = require('./routes/users');
+const apiMessagesRouter = require('./routes/messages');
 
 var app = express();
 
@@ -29,6 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/api/v1/messages', apiMessagesRouter);
 
 //init passport.js and passport sessions middleware
 app.use(passport.initialize());
