@@ -213,7 +213,7 @@ class Message{
                 .then(res => {
 
                     console.log(res);
-                    //check if message posted successfully
+                    //check if message deleted successfully
                     if(res['status'] == "success"){
 
                         //send the message over websocket
@@ -228,6 +228,78 @@ class Message{
 
             }
         })
+
+
+        //update messages
+        messagesContainer.addEventListener('click', function(e){
+            //check if clicked element is a delete element
+            if (e.target.matches('.icons--pen')){
+                
+                //get the ID of the message
+                let messageId = e.target.parentElement.parentElement.dataset.id;
+                
+                //get the message element and convert to an inputfield
+                let messageElement = e.target.parentElement.previousElementSibling.previousElementSibling;
+                let EditField = document.createElement('input');
+                EditField.classList.add('message', 'title', 'title-message', 'flex--item', 'input', 'input--message');
+                EditField.value = messageElement.innerHTML;
+                messageElement.parentNode.replaceChild(EditField,messageElement);
+                
+                //check if user presses enter to update the message
+                EditField.addEventListener('keypress', function(e){
+                    let key = e.which || e.keyCode;
+                    if(key === 13){
+                        let updatedMessage = EditField.value;
+
+                        //update message over our API
+                        fetch(`/api/v1/messages/${messageId}`, {
+                            method: 'put',
+                            headers: {
+                                'Accept': 'application/json, text/plain, */*',
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                            },
+                            body: JSON.stringify({
+                                "message": updatedMessage
+                            })
+                        })
+                        .then(res=>res.json())
+                        .then(res => {
+
+                            console.log(res);
+                            //check if message updated successfully
+                            if(res['status'] == "success"){
+
+                                //convert the input field back to the regular message element
+                                let messageElement = document.createElement("h3");
+                                messageElement.classList.add('message', 'title', 'title--message', 'flex--item' );
+                                messageElement.innerHTML = EditField.value;
+                                EditField.parentNode.replaceChild(messageElement, EditField);
+
+                                //send the updated message over websocket
+                                that.primus.write({
+                                    "action": "update",
+                                    "messageId": messageId,
+                                    "updatedMessage": updatedMessage
+                                });
+                            }
+
+                        });
+
+                        
+
+                    }
+                })
+
+                //delete message over our API
+                
+                
+
+            }
+        })
+
+
+
 
     }
     

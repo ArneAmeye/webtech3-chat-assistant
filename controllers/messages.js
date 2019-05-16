@@ -104,7 +104,7 @@ let put = (req, res, next) => {
     let messageId = req.params.id;
     let updatedMessage = req.body.message;
     //search the specific message by it's id and update it
-    messageModel.findByIdAndUpdate(messageId,{ $set: { message: updatedMessage }}, {new: true}, (err, docs) =>{
+    messageModel.findOneAndUpdate({_id:messageId, user_id: req.user._id},{ $set: { message: updatedMessage }}, {new: true}, (err, docs) =>{
         //handle error if there is any (don't block the thread!)
         if( err){
             res.json({
