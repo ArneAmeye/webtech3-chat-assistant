@@ -126,7 +126,7 @@ let put = (req, res, next) => {
 let del = (req, res, next) => {
     let messageId = req.params.id;
     //find a message by ID and delete it
-    messageModel.findByIdAndDelete(messageId, (err, docs) =>{
+    messageModel.findOneAndDelete({_id:messageId, user_id: req.user._id}, (err, docs) =>{
         //handle error if there is any (don't block the thread!)
         if( err){
             res.json({

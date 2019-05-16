@@ -62,6 +62,18 @@ class Message{
 
                 //finally append the messageWrapper to the messagesContainer
                 messagesContainer.appendChild(messageWrapper);
+
+                //add action buttons
+                ShowActions();
+            }
+
+            if(data.action == "delete"){
+                console.log(data);
+                //get the specific message that was deleted
+                let deletedMessage = document.querySelector(`[data-id="${data.messageId}"]`);
+                //show to all users that this message was deleted
+                deletedMessage.querySelector(".title--message").innerHTML = "This message is deleted by it's user";
+                deletedMessage.querySelector(".title--message").classList.add("title--message--deleted");
             }
 
 
@@ -158,6 +170,47 @@ class Message{
 
         });
 
+
+        //delete messages
+        messagesContainer.addEventListener('click', function(e){
+            //check if clicked element is a delete element
+            if (e.target.matches('.icons--trash')){
+                
+                //get the ID of the message
+                let messageId = e.target.parentElement.parentElement.dataset.id;
+
+                //delete message over our API
+                fetch(`/api/v1/messages/${messageId}`, {
+                    method: 'delete',
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    },
+                    body: JSON.stringify({
+                        
+                    })
+                })
+                .then(res=>res.json())
+                .then(res => {
+
+                    console.log(res);
+                    //check if message posted successfully
+                    if(res['status'] == "success"){
+
+                        //send the message over websocket
+                        that.primus.write({
+                            "action": "delete",
+                            "messageId": messageId
+                        });
+                    }
+
+                });
+                
+
+            }
+        })
+
     }
     
 
@@ -213,7 +266,21 @@ function getAllMessages(){
             }
        }
 
+       //now call the showDeletables function to show edit and delete buttons for your own messages
+       ShowActions();
+
     });
+}
+
+function ShowActions(){
+    let myUserId = localStorage.getItem("user_id");
+    let myMessages = document.querySelectorAll(`[data-user_id="${myUserId}"]`);
+    
+    //loop over the users messages and show the edit and delete buttons
+    for(i = 0; i < myMessages.length; i++){
+        let thisActions = myMessages[i].parentElement.parentElement.querySelector(".iconsWrap");
+        thisActions.style.display = "block";
+    }
 }
 
 let message = new Message();

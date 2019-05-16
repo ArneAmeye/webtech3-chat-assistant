@@ -14,11 +14,15 @@ const signup = async (req,res,next)=>{
                 uid: result._id,
                 username: result.username
             }, "MyVerySecretWord");
+            let user_id = result.user._id;
+            let username = result.user.username;
 
             res.json({
                 "status": "success",
                 "data": {
-                    "token": token
+                    "token": token,
+                    "user_id": user_id,
+                    "username": username
                 }
             })
         }).catch(error =>{
@@ -42,11 +46,15 @@ const login = async (req,res,next) =>{
             uid: result.user._id,
             username: result.user.username
         }, "MyVerySecretWord");
+        let user_id = result.user._id;
+        let username = result.user.username;
 
         return res.json({
             "status": "success",
             "data": {
-                "token": token
+                "token": token,
+                "user_id": user_id,
+                "username": username
             }
         })
     }).catch(error => {
