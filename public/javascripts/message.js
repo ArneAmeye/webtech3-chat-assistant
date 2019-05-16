@@ -94,6 +94,17 @@ class Message{
                 deletedMessage.querySelector(".title--message").classList.add("title--message--deleted");
             }
 
+            if(data.action == "update"){
+                console.log(data);
+                //get the specific message that was updated
+                let updatedMessage = document.querySelector(`[data-id="${data.messageId}"]`);
+                //show to all users that this message was updated
+                data.updatedMessage += " (edited)";
+                updatedMessage.querySelector(".title--message").innerHTML = data.updatedMessage;
+                updatedMessage.querySelector(".title--message").style.fontStyle = "italic";
+                
+            }
+
 
         });
 
