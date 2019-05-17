@@ -8,24 +8,6 @@ class Message{
             document.location.href = "http://localhost:3000/login";
         }
 
-        //set username in sidebar
-        let myUsername = localStorage.getItem("username");
-        document.querySelector(".title--name-me").innerHTML = myUsername;
-
-        //logout on clicking logout btn
-        let logoutBtn = document.querySelector(".btn--logout");
-        logoutBtn.addEventListener('click', function(e){
-            //delete localstorage token, user_id and username
-            localStorage.removeItem('token');
-            localStorage.removeItem('user_id');
-            localStorage.removeItem('username');
-            
-            //redirect to login page
-            document.location.href = "http://localhost:3000/login";
-
-            e.preventDefault();
-        })
-
         //show all messages
         getAllMessages();
 
@@ -46,6 +28,31 @@ class Message{
               , retries: 10 // Number: How many times we should try to reconnect.
             }
         });
+
+        //set username in sidebar
+        let myUsername = localStorage.getItem("username");
+        document.querySelector(".title--name-me").innerHTML = myUsername;
+
+        //logout on clicking logout btn
+        let logoutBtn = document.querySelector(".btn--logout");
+        logoutBtn.addEventListener('click', function(e){
+
+            //send live user over websockets
+            that.primus.write({
+                "action": "liveUserGone",
+                "username": localStorage.getItem('username')
+            });
+
+            //delete localstorage token, user_id and username
+            localStorage.removeItem('token');
+            localStorage.removeItem('user_id');
+            localStorage.removeItem('username');
+            
+            //redirect to login page
+            document.location.href = "http://localhost:3000/login";
+
+            e.preventDefault();
+        })
 
 
         //primus on data listener ###TODO###
@@ -103,6 +110,25 @@ class Message{
                 updatedMessage.querySelector(".title--message").innerHTML = data.updatedMessage;
                 updatedMessage.querySelector(".title--message").style.fontStyle = "italic";
                 
+            }
+
+            //new user logged on, show to all other users!
+            if(data.action == "liveUser"){  // & data.username !== localStorage.getItem("username")
+                let userElement = document.createElement('div');
+                userElement.classList.add('profile', 'profile--friends', 'flex', 'flex--container');
+                userElement.dataset.username = data.username;
+                let userTemplate = `
+                    <img class="profpic flex--item" src="https://api.adorable.io/avatars/75/abott@adorable.png" alt="profPic">
+                    <h4 class="title title--name flex--item">${data.username}</h4>
+                `;
+                userElement.innerHTML = userTemplate;
+                document.querySelector(".online").appendChild(userElement);
+            }
+
+            //a user leaves the chat (logout), show to all other users!
+            if(data.action == "liveUserGone"){
+                let userElement = document.querySelector(`[data-username="${data.username}"]`)
+                userElement.parentNode.removeChild(userElement);
             }
 
 

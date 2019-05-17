@@ -2,6 +2,16 @@ let registerBtn = document.querySelector('.btn--register').addEventListener("cli
     let username = document.querySelector('#myUsername').value;
     let password = document.querySelector('#myPassword').value;
 
+    //init primus websocket on this very own page
+    this.primus = Primus.connect("/", {
+        reconnect: {
+            max: Infinity // Number: The max delay before we try to reconnect.
+          , min: 500 // Number: The minimum delay before we try reconnect.
+          , retries: 10 // Number: How many times we should try to reconnect.
+        }
+    });
+
+    //do register fetch
     fetch('http://localhost:3000/users/signup', {
         method: "post",
         headers: {
@@ -14,11 +24,16 @@ let registerBtn = document.querySelector('.btn--register').addEventListener("cli
     }).then(response =>{
         return response.json();
     }).then(json =>{
+        console.log(json);
         if(json.status === "success"){
-            // let feedback = document.querySelector('.alert');
-            // feedback.textContent = "Register is complete!";
-            // feedback.classList.remove('hidden');
+            
+            //send live user over websockets
+            this.primus.write({
+                "action": "liveUser",
+                "username": json.data.username
+            });
 
+            //save variables from json result and store them in localstorage + redirect
             let token = json.data.token;
             let user_id = json.data.user_id;
             let username = json.data.username;

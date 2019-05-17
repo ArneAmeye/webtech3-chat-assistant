@@ -14,8 +14,8 @@ const signup = async (req,res,next)=>{
                 uid: result._id,
                 username: result.username
             }, "MyVerySecretWord");
-            let user_id = result.user._id;
-            let username = result.user.username;
+            let user_id = result._id;
+            let username = result.username;
 
             res.json({
                 "status": "success",
@@ -26,6 +26,7 @@ const signup = async (req,res,next)=>{
                 }
             })
         }).catch(error =>{
+            console.log(error);
             res.json({
                 "status": "error"
             })
