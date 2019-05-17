@@ -30,11 +30,11 @@ const signup = async (req,res,next)=>{
                 "status": "error"
             })
         });
-};
+}
 const login = async (req,res,next) =>{
     
     const user = await User.authenticate()(req.body.username, req.body.password).then(result =>{
-        console.log(result);
+        
         if(!result.user){
             return res.json({
                 "status": "failed",
@@ -63,7 +63,11 @@ const login = async (req,res,next) =>{
             "message": error
         })
     });
-};
+}
+const profile = (req,res,next)=>{
+
+}
 
 module.exports.signup = signup;
 module.exports.login = login;
+module.exports.profile = profile;
