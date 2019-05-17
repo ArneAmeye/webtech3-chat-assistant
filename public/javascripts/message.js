@@ -3,7 +3,30 @@
 class Message{
 
     constructor(){
+        //check if user has a token
+        if(localStorage.getItem('token') == null){
+            document.location.href = "http://localhost:3000/login";
+        }
 
+        //set username in sidebar
+        let myUsername = localStorage.getItem("username");
+        document.querySelector(".title--name-me").innerHTML = myUsername;
+
+        //logout on clicking logout btn
+        let logoutBtn = document.querySelector(".btn--logout");
+        logoutBtn.addEventListener('click', function(e){
+            //delete localstorage token, user_id and username
+            localStorage.removeItem('token');
+            localStorage.removeItem('user_id');
+            localStorage.removeItem('username');
+            
+            //redirect to login page
+            document.location.href = "http://localhost:3000/login";
+
+            e.preventDefault();
+        })
+
+        //show all messages
         getAllMessages();
 
         //Register DOM elements
@@ -57,6 +80,29 @@ class Message{
 
                 //finally append the messageWrapper to the messagesContainer
                 messagesContainer.appendChild(messageWrapper);
+
+                //add action buttons
+                ShowActions();
+            }
+
+            if(data.action == "delete"){
+                console.log(data);
+                //get the specific message that was deleted
+                let deletedMessage = document.querySelector(`[data-id="${data.messageId}"]`);
+                //show to all users that this message was deleted
+                deletedMessage.querySelector(".title--message").innerHTML = "This message is deleted by it's user";
+                deletedMessage.querySelector(".title--message").classList.add("title--message--deleted");
+            }
+
+            if(data.action == "update"){
+                console.log(data);
+                //get the specific message that was updated
+                let updatedMessage = document.querySelector(`[data-id="${data.messageId}"]`);
+                //show to all users that this message was updated
+                data.updatedMessage += " (edited)";
+                updatedMessage.querySelector(".title--message").innerHTML = data.updatedMessage;
+                updatedMessage.querySelector(".title--message").style.fontStyle = "italic";
+                
             }
 
 
@@ -74,12 +120,11 @@ class Message{
                 method: 'post',
                 headers: {
                     'Accept': 'application/json, text/plain, */*',
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
                 },
                 body: JSON.stringify({
                     "message": myMessage,
-                    "username": "Arne",
-                    "user_id": 99
                 })
             })
             .then(res=>res.json())
@@ -121,12 +166,11 @@ class Message{
                     method: 'post',
                     headers: {
                         'Accept': 'application/json, text/plain, */*',
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
                     },
                     body: JSON.stringify({
                         "message": myMessage,
-                        "username": "Arne",
-                        "user_id": 99
                     })
                 })
                 .then(res=>res.json())
@@ -155,6 +199,119 @@ class Message{
 
         });
 
+
+        //delete messages
+        messagesContainer.addEventListener('click', function(e){
+            //check if clicked element is a delete element
+            if (e.target.matches('.icons--trash')){
+                
+                //get the ID of the message
+                let messageId = e.target.parentElement.parentElement.dataset.id;
+
+                //delete message over our API
+                fetch(`/api/v1/messages/${messageId}`, {
+                    method: 'delete',
+                    headers: {
+                        'Accept': 'application/json, text/plain, */*',
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    },
+                    body: JSON.stringify({
+                        
+                    })
+                })
+                .then(res=>res.json())
+                .then(res => {
+
+                    console.log(res);
+                    //check if message deleted successfully
+                    if(res['status'] == "success"){
+
+                        //send the message over websocket
+                        that.primus.write({
+                            "action": "delete",
+                            "messageId": messageId
+                        });
+                    }
+
+                });
+                
+
+            }
+        })
+
+
+        //update messages
+        messagesContainer.addEventListener('click', function(e){
+            //check if clicked element is a delete element
+            if (e.target.matches('.icons--pen')){
+                
+                //get the ID of the message
+                let messageId = e.target.parentElement.parentElement.dataset.id;
+                
+                //get the message element and convert to an inputfield
+                let messageElement = e.target.parentElement.previousElementSibling.previousElementSibling;
+                let EditField = document.createElement('input');
+                EditField.classList.add('message', 'title', 'title-message', 'flex--item', 'input', 'input--message');
+                EditField.value = messageElement.innerHTML;
+                messageElement.parentNode.replaceChild(EditField,messageElement);
+                
+                //check if user presses enter to update the message
+                EditField.addEventListener('keypress', function(e){
+                    let key = e.which || e.keyCode;
+                    if(key === 13){
+                        let updatedMessage = EditField.value;
+
+                        //update message over our API
+                        fetch(`/api/v1/messages/${messageId}`, {
+                            method: 'put',
+                            headers: {
+                                'Accept': 'application/json, text/plain, */*',
+                                'Content-Type': 'application/json',
+                                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                            },
+                            body: JSON.stringify({
+                                "message": updatedMessage
+                            })
+                        })
+                        .then(res=>res.json())
+                        .then(res => {
+
+                            console.log(res);
+                            //check if message updated successfully
+                            if(res['status'] == "success"){
+
+                                //convert the input field back to the regular message element
+                                let messageElement = document.createElement("h3");
+                                messageElement.classList.add('message', 'title', 'title--message', 'flex--item' );
+                                messageElement.innerHTML = EditField.value;
+                                EditField.parentNode.replaceChild(messageElement, EditField);
+
+                                //send the updated message over websocket
+                                that.primus.write({
+                                    "action": "update",
+                                    "messageId": messageId,
+                                    "updatedMessage": updatedMessage
+                                });
+                            }
+
+                        });
+
+                        
+
+                    }
+                })
+
+                //delete message over our API
+                
+                
+
+            }
+        })
+
+
+
+
     }
     
 
@@ -167,7 +324,8 @@ function getAllMessages(){
         method: 'get',
         headers: {
             'Accept': 'application/json, text/plain, */*',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('token')
         }
     })
     .then(res=>res.json())
@@ -209,7 +367,21 @@ function getAllMessages(){
             }
        }
 
+       //now call the showDeletables function to show edit and delete buttons for your own messages
+       ShowActions();
+
     });
+}
+
+function ShowActions(){
+    let myUserId = localStorage.getItem("user_id");
+    let myMessages = document.querySelectorAll(`[data-user_id="${myUserId}"]`);
+    
+    //loop over the users messages and show the edit and delete buttons
+    for(i = 0; i < myMessages.length; i++){
+        let thisActions = myMessages[i].parentElement.parentElement.querySelector(".iconsWrap");
+        thisActions.style.display = "block";
+    }
 }
 
 let message = new Message();

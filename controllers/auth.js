@@ -14,11 +14,15 @@ const signup = async (req,res,next)=>{
                 uid: result._id,
                 username: result.username
             }, "MyVerySecretWord");
+            let user_id = result.user._id;
+            let username = result.user.username;
 
             res.json({
                 "status": "success",
                 "data": {
-                    "token": token
+                    "token": token,
+                    "user_id": user_id,
+                    "username": username
                 }
             })
         }).catch(error =>{
@@ -30,10 +34,27 @@ const signup = async (req,res,next)=>{
 const login = async (req,res,next) =>{
     
     const user = await User.authenticate()(req.body.username, req.body.password).then(result =>{
-        res.json({
+        console.log(result);
+        if(!result.user){
+            return res.json({
+                "status": "failed",
+                "message": "login failed"
+            })
+        }
+
+        let token = jwt.sign({
+            uid: result.user._id,
+            username: result.user.username
+        }, "MyVerySecretWord");
+        let user_id = result.user._id;
+        let username = result.user.username;
+
+        return res.json({
             "status": "success",
             "data": {
-                "user": result
+                "token": token,
+                "user_id": user_id,
+                "username": username
             }
         })
     }).catch(error => {

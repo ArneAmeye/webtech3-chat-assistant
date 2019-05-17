@@ -12,6 +12,7 @@
     position: absolute;
     right: 25px;
     bottom: 10px;
+    display: none;
 }
 .icons{
     width: 25px;
@@ -26,7 +27,7 @@
 }
 
 .icons--trash{
-    background-color: indianred;
+    background-color: $darkRed;
 }
 
 .messageSend{

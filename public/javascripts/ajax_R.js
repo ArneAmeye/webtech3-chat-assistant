@@ -20,7 +20,12 @@ let registerBtn = document.querySelector('.btn--register').addEventListener("cli
             // feedback.classList.remove('hidden');
 
             let token = json.data.token;
+            let user_id = json.data.user_id;
+            let username = json.data.username;
+            
             localStorage.setItem('token', token);
+            localStorage.setItem("user_id", user_id);
+            localStorage.setItem("username", username);
             window.location.href = "http://localhost:3000";
         }
     })
