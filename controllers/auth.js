@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Profile = require('../models/Profile')
 const jwt = require('jsonwebtoken');
 
 const signup = async (req,res,next)=>{
@@ -65,7 +66,7 @@ const login = async (req,res,next) =>{
     });
 }
 const profile = (req,res,next)=>{
-
+    let 
 }
 
 module.exports.signup = signup;
