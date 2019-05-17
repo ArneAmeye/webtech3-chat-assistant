@@ -2,10 +2,6 @@ const { src, dest, watch, parallel } = require('gulp');
 const sass = require('gulp-sass');
 const browserSync = require('browser-sync').create();
 
-// function pizza(){
-//     return src("./*.md")
-//     .pipe(dest("./markdown/"))
-// }
 function sassToCss(done){
     src("./public/source/sass/app.scss")
         .pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
