@@ -1,4 +1,4 @@
-const messageModel = require('../models/messageModel');
+const messageModel = require('../models/Message');
 
 //GET callback for messages (ALL or by USER)
 let get = (req, res, next) => {

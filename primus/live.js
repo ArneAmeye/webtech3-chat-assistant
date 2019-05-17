@@ -1,6 +1,6 @@
 //SERVER SIDE
 
-const messageModel = require('../models/messageModel');
+const messageModel = require('../models/Message');
 const userModel = require('../models/User');
 
 //go function will be called from "www" file in the bin folder!
