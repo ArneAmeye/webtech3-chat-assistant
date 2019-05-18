@@ -141,6 +141,13 @@ class Message{
             //get value (message) from the inputfield and store it in a variable
             let myMessage = messageInput.value;
 
+            //get location coords
+            navigator.geolocation.getCurrentPosition(position => {
+                //save lat and lng
+                localStorage.setItem("lat", position.coords.latitude);
+                localStorage.setItem("lng", position.coords.longitude);
+            });
+            
             //send message over our API
             fetch('/api/v1/messages', {
                 method: 'post',
@@ -151,6 +158,8 @@ class Message{
                 },
                 body: JSON.stringify({
                     "message": myMessage,
+                    "lat": localStorage.getItem('lat'),
+                    "lng": localStorage.getItem('lng')
                 })
             })
             .then(res=>res.json())
@@ -187,6 +196,13 @@ class Message{
                 //get value (message) from the inputfield and store it in a variable
                 let myMessage = messageInput.value;
 
+                //get location coords
+                navigator.geolocation.getCurrentPosition(position => {
+                    //save lat and lng
+                    localStorage.setItem("lat", position.coords.latitude);
+                    localStorage.setItem("lng", position.coords.longitude);
+                });
+
                 //send message over our API
                 fetch('/api/v1/messages', {
                     method: 'post',
@@ -197,6 +213,8 @@ class Message{
                     },
                     body: JSON.stringify({
                         "message": myMessage,
+                        "lat": localStorage.getItem('lat'),
+                        "lng": localStorage.getItem('lng')
                     })
                 })
                 .then(res=>res.json())

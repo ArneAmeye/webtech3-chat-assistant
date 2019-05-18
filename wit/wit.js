@@ -6,7 +6,7 @@ const client = new Wit({
 });
 
 
-let handleMessage = (question) => {
+let handleMessage = (question, lat, lng) => {
 
     //replace @bot in the sentence with nothing so we keep just the question
     question = question.replace("@bot", "");
@@ -55,15 +55,15 @@ let handleMessage = (question) => {
                     
                     //do different lookup for today than for tomorrow
                     if (time == 'today'){
-                        getWeatherToday();
+                        getWeatherToday(lat,lng);
                     }else{
-                        getWeatherTomorrow()
+                        getWeatherTomorrow(lat,lng)
                     }
 
                 }else{
                     //default time is today/now, search weather for current day
                     let time = "today";
-                    getWeatherToday();
+                    getWeatherToday(lat, lng);
                 }
                 
                 
@@ -81,9 +81,9 @@ let handleMessage = (question) => {
 }
 
 
-function getWeatherToday(){
+function getWeatherToday(lat, lng){
     //build url to fetch
-    let url = `https://api.darksky.net/forecast/6c8db87a5cad6ff776ad9d85d14e54aa/50.85,3.29?units=si`;
+    let url = `https://api.darksky.net/forecast/6c8db87a5cad6ff776ad9d85d14e54aa/${lat},${lng}?units=si`;
         fetch(url)
         .then(response => {
             return response.json();
@@ -100,9 +100,9 @@ function getWeatherToday(){
         })
 }
 
-function getWeatherTomorrow(){
+function getWeatherTomorrow(lat, lng){
     //build url to fetch
-    let url = `https://api.darksky.net/forecast/6c8db87a5cad6ff776ad9d85d14e54aa/50.85,3.29?units=si`;
+    let url = `https://api.darksky.net/forecast/6c8db87a5cad6ff776ad9d85d14e54aa/${lat},${lng}?units=si`;
         fetch(url)
         .then(response => {
             return response.json();
