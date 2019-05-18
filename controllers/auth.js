@@ -65,8 +65,31 @@ const login = async (req,res,next) =>{
         })
     });
 }
-const profile = (req,res,next)=>{
-    let 
+const profile = (req,res)=>{
+    let user = req.body.userId;
+    let skill = req.body.skill;
+    
+    //write this new message to our MongoDB
+    let p = new Profile();
+    p.skill = skill;
+    p.user_id = user;
+
+    p.save((err, doc) =>{
+        //handle error if there is any (don't block the thread!)
+        if( err){
+            res.json({
+                "status": "error",
+                "message": err.message
+            });
+        }
+        //if no errors, go ahead and do your job!
+        if(!err){
+            res.json({
+                "status": "success",
+                "message": doc
+            });
+        }
+    });
 }
 
 module.exports.signup = signup;

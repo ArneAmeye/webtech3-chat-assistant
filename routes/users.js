@@ -9,6 +9,6 @@ router.get('/', function(req, res, next) {
 
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
-router.post('/profile', authController.profile);
+router.post('/profile/:skill', authController.profile);
 
 module.exports = router;
