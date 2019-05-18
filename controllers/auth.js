@@ -65,7 +65,7 @@ const login = async (req,res,next) =>{
         })
     });
 }
-const profile = (req,res)=>{
+const saveSkill = (req,res)=>{
     let user = req.body.userId;
     let skill = req.body.skill;
     
@@ -92,6 +92,30 @@ const profile = (req,res)=>{
     });
 }
 
+const deleteSkill = (req, res) => {
+    let user = req.body.userId;
+    let skill = req.body.skill;
+    // let messageId = req.params.id;
+    //find a skill by skillname and userID and delete it
+    Profile.findOneAndDelete({skill:skill, user_id: user}, (err, docs) =>{
+        //handle error if there is any (don't block the thread!)
+        if( err){
+            res.json({
+                "status": "error",
+                "message": err.message
+            });
+        }
+        //if no errors, go ahead and do your job!
+        if(!err){
+            res.json({
+                "status": "success",
+                "data": docs
+            })
+        }
+    });
+}
+
 module.exports.signup = signup;
 module.exports.login = login;
-module.exports.profile = profile;
+module.exports.saveSkill = saveSkill;
+module.exports.deleteSkill = deleteSkill;
