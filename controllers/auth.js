@@ -114,8 +114,29 @@ const deleteSkill = (req, res) => {
         }
     });
 }
+const getSkills= (req,res)=>{
+    let user = req.body.userId;
+
+    Profile.find({user_id: user}, (err, docs) =>{
+        //handle error if there is any (don't block the thread!)
+        if( err){
+            res.json({
+                "status": "error",
+                "message": err.message
+            });
+        }
+        //if no errors, go ahead and do your job!
+        if(!err){
+            res.json({
+                "status": "success",
+                "data": docs
+            })
+        }
+    });
+}
 
 module.exports.signup = signup;
 module.exports.login = login;
+module.exports.getSkills = getSkills;
 module.exports.saveSkill = saveSkill;
 module.exports.deleteSkill = deleteSkill;
