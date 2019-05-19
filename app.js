@@ -29,7 +29,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(cors());
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/users', passport.authenticate('jwt', {
+  session: false
+}) , usersRouter);
 app.use('/api/v1/messages', apiMessagesRouter);
 
 //init passport.js and passport sessions middleware

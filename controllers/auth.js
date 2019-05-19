@@ -95,7 +95,7 @@ const saveSkill = (req,res)=>{
 const deleteSkill = (req, res) => {
     let user = req.body.userId;
     let skill = req.body.skill;
-    
+
     //find a skill by skillname and userID and delete it
     Profile.findOneAndDelete({skill:skill, user_id: user}, (err, docs) =>{
         //handle error if there is any (don't block the thread!)
@@ -129,7 +129,9 @@ const getSkills= (req,res)=>{
         if(!err){
             res.json({
                 "status": "success",
-                "data": docs
+                "data": {
+                    "skill": docs
+                }
             })
         }
     });
