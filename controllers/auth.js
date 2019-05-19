@@ -116,7 +116,7 @@ const deleteSkill = (req, res) => {
 }
 const getSkills= (req,res)=>{
     //let user = req.body.userId;
-
+    console.log(req.user + "hier");
     Profile.find({}, (err, docs) =>{
         //handle error if there is any (don't block the thread!)
         if( err){

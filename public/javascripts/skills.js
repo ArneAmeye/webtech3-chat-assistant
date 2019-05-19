@@ -57,11 +57,13 @@ function getAllSkills(){
             'Authorization': 'Bearer' + localStorage.getItem('token')
         }
     })
-    .then(res=>res.json())
+    .then(res=>{
+       return res.json();
+    })
     .then(res => {
         console.log(res);
         //check if message posted successfully
-       if(res.status == "success"){
+       if(res['status'] == "success"){
             alert("yo!");
        }
 
