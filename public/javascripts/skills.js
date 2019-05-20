@@ -63,11 +63,19 @@ function getAllSkills(){
        return res.json();
     })
     .then(res => {
-        console.log(res);
+        
         //check if message posted successfully
        if(res['status'] == "success"){
-            alert("yo!");
+            let marked = res.data.skills;
             
+            // loop true skills
+            for(let i = 0; i < marked.length; i++){
+                // select element by data-skill attribute by res.data.skills.skill
+                let markedSkill = document.querySelector(`[data-skill='${marked[i].skill}']`);
+                // check those skills and edit data-edited attribute
+                markedSkill.checked = true;
+                markedSkill.setAttribute("data-edited", 1);
+            }
        }
 
     });
