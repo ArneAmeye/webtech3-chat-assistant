@@ -18,4 +18,9 @@ router.get('/register', function(req, res, next) {
   res.render('register', { title: 'ChatApp - Register' });
 });
 
+/* GET profile page. */
+router.get('/profile', function(req, res, next) {
+  res.render('profile', { title: 'ChatApp - Profile' });
+});
+
 module.exports = router;

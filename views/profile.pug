@@ -1,0 +1,56 @@
+extends layout
+
+block content
+    h1= title
+    p Welcome to #{title}
+
+    div.skills
+        label
+            input.skill(type='checkbox' data-skill='HTML5' data-edited="0" name='HTML5')
+            | HTML5
+        label
+            input.skill(type='checkbox' data-skill='CSS3' data-edited="0" name='CSS3')
+            | CSS3
+        label
+            input.skill(type='checkbox' data-skill='JavaScript' data-edited="0" name='JavaScript')
+            | JavaScript
+        label
+            input.skill(type='checkbox' data-skill='Prototyping' data-edited="0" name='Prototyping')
+            | Prototyping UI
+        label
+            input.skill(type='checkbox' data-skill='SQL' data-edited="0" name='SQL')
+            | SQL
+        label
+            input.skill(type='checkbox' data-skill='Java' data-edited="0" name='Java')
+            | Java
+        label
+            input.skill(type='checkbox' data-skill='Business' data-edited="0" name='Business')
+            | Business Fundamentals
+        label
+            input.skill(type='checkbox' data-skill='SmartTech' data-edited="0" name='SmartTech')
+            | Smart Tech
+        label
+            input.skill(type='checkbox' data-skill='UX' data-edited="0" name='UX')
+            | User Experience
+        label
+            input.skill(type='checkbox' data-skill='DesignThinking' data-edited="0" name='DesignThinking')
+            | Design Thinking
+        label
+            input.skill(type='checkbox' data-skill='PHP' data-edited="0" name='PHP')
+            | PHP
+        label
+            input.skill(type='checkbox' data-skill='ES6' data-edited="0" name='ES6')
+            | ES6
+        label
+            input.skill(type='checkbox' data-skill='Node' data-edited="0" name='Node')
+            | Node.js
+        label
+            input.skill(type='checkbox' data-skill='MongoDB' data-edited="0" name='MongoDB')
+            | Mongo DB
+        label
+            input.skill(type='checkbox' data-skill='AfterEffects' data-edited="0" name='AfterEffects')
+            | After Effects
+        
+    //- input.btn.btn--save(type='submit' value='Save My Skills')
+
+    script(src="javascripts/skills.js")
