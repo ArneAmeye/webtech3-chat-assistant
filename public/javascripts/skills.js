@@ -1,5 +1,6 @@
 // CLIENT-SIDE
 window.addEventListener("load", getAllSkills());
+
 let saveSkill = document.querySelector(".skills").addEventListener("change", e => {
     if(e.target.classList.contains("skill")){
         let skill = e.target.getAttribute("data-skill");
@@ -20,7 +21,7 @@ let saveSkill = document.querySelector(".skills").addEventListener("change", e =
                 return result.json();
             }).then(json =>{
                 console.log(json);
-                e.target.setAttribute("data-edited", 1)
+                e.target.setAttribute("data-edited", 1);
             }).catch(err => {
                 console.log(err);
             })
@@ -40,7 +41,7 @@ let saveSkill = document.querySelector(".skills").addEventListener("change", e =
                 return result.json();
             }).then(json =>{
                 console.log(json);
-                e.target.setAttribute("data-edited", 0)
+                e.target.setAttribute("data-edited", 0);
             }).catch(err => {
                 console.log(err);
             })
@@ -50,7 +51,8 @@ let saveSkill = document.querySelector(".skills").addEventListener("change", e =
 })
 // Get all skills via API
 function getAllSkills(){
-    fetch('http://localhost:3000/users/profile', {
+    let userId = localStorage.getItem('user_id');
+    fetch('http://localhost:3000/users/profile/' + userId, {
         method: 'get',
         headers: {
             'Content-Type': 'application/json',
@@ -65,6 +67,7 @@ function getAllSkills(){
         //check if message posted successfully
        if(res['status'] == "success"){
             alert("yo!");
+            
        }
 
     });

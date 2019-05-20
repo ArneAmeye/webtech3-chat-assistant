@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 
 router.post('/signup', authController.signup);
 router.post('/login', authController.login);
-router.get('/profile', authController.getSkills);
+router.get('/profile/:userId', authController.getSkills);
 router.post('/profile/:skill', authController.saveSkill);
 router.delete('/profile/:skill', authController.deleteSkill);
 

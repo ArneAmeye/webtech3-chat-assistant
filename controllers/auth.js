@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const Profile = require('../models/Profile')
 const jwt = require('jsonwebtoken');
+const empty = require('is-empty');
 
 const signup = async (req,res,next)=>{
     let username = req.body.username; // UI of postman
@@ -116,23 +117,32 @@ const deleteSkill = (req, res) => {
 }
 const getSkills= (req,res)=>{
     //let user = req.body.userId;
-    console.log(req.user + "hier");
-    Profile.find({}, (err, docs) =>{
+    let user = req.params.userId;
+
+    Profile.find({user_id: user}, (err, docs) =>{
         //handle error if there is any (don't block the thread!)
-        if( err){
+        if( err ){
             res.json({
                 "status": "error",
                 "message": err.message
             });
         }
         //if no errors, go ahead and do your job!
-        if(!err){
-            res.json({
-                "status": "success",
-                "data": {
-                    "skill": docs
-                }
-            })
+        if( !err ){
+            // if docs return empty (npm package), its a fail else success
+            if( empty(docs) ){
+                res.json({
+                    "status": "Fail",
+                    "message": "No skills yet!"
+                })
+            }else{
+                res.json({
+                    "status": "success",
+                    "data": {
+                        "skills": docs
+                    }
+                })
+            } 
         }
     });
 }
