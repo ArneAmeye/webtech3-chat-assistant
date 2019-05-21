@@ -30,5 +30,20 @@ let go = function(server) {
     });
 }
 
+let emitBotResponse = function(answer){
+    
+    const Primus = require("primus");
+    const Emitter = require('primus-emitter');
+    let server = require('http').createServer();
+
+    let primus = new Primus(server, {});
+    primus.plugin('emitter', Emitter);
+
+    primus.send('bot', answer);
+    
+
+}
+
 //exporteer deze functie/methode zodat we deze effectief kunnen aanroepen vanuit een ander file
 module.exports.go = go;
+module.exports.emitBotResponse = emitBotResponse;
