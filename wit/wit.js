@@ -1,5 +1,6 @@
 const {Wit, log} = require('node-wit');
 const Profile = require('../models/Profile');
+const User = require('../models/User');
 
 const client = new Wit({
   accessToken: 'E3UDPK7Z2YMGXEOK7LYIKYARHNRQ26A7',
@@ -36,10 +37,43 @@ let handleMessage = (question, lat, lng) => {
                     }
                     //if no errors, go ahead and do your job!
                     if(!err){
-                        console.log(docs);
-                        //get all user_id from docs
-                        //link usernames to user_id's?
-                        //show users to front-end
+
+                        //init (empty) users array
+                        let user_ids = [];
+
+                        //loop over docs and add user_id's to array
+                        for(i = 0; i < docs.length; i++){
+                            user_ids.push(docs[i].user_id);
+                        }
+
+                        //find usernames for the respective user_id's
+                        let userfields = {
+                            __v: false,
+                            _id: false,
+                            salt: false,
+                            hash: false
+                        }
+                        User.find({_id:{$in: user_ids} }, userfields, (err, docs) =>{
+                            if(err){
+                                console.log(err.message);
+                            }
+                            if(!err){
+                                //build an array of the returned usernames in docs
+                                let users = [];
+                                for(i = 0; i < docs.length; i++){
+                                    users.push(docs[i].username);
+                                }
+                                //set empty array to "none"
+                                if (users.length == 0){
+                                    users.push("nobody added this skill 😢" );
+                                }
+                                //build your answer
+                                let answer = skillSearched + " is known by: " + users;
+                                console.log(answer);
+                            }
+                        });
+                        
+                        
                     }
                 });
 
