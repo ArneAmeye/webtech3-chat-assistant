@@ -1,4 +1,5 @@
 const {Wit, log} = require('node-wit');
+const Profile = require('../models/Profile');
 
 const client = new Wit({
   accessToken: 'E3UDPK7Z2YMGXEOK7LYIKYARHNRQ26A7',
@@ -20,12 +21,13 @@ let handleMessage = (question, lat, lng) => {
         //check which intent the bot perceives (skill searching, weahter, ...)
         switch(data.entities.intent[0].value){
             case 'skill':
-                console.log(data.entities.skillset[0].value); //what skill is the user searching for?
+
+                //what skill is the user searching for?
+                console.log(data.entities.skillset[0].value); 
                 let skillSearched = data.entities.skillset[0].value;
                 
-                //we could now do a fetch to our own api to find users out of our DB that have this skill => /api/v1/skills ? with a body that contains "skillSearched"?
-                
-                /*messageModel.find({skill: skillSearched}, (err, docs) =>{
+                //find user_id's that have the skill that is being asked for
+                Profile.find({skill: skillSearched}, (err, docs) =>{
                     //handle error if there is any (don't block the thread!)
                     if( err){
                         console.log(err.message);
@@ -39,9 +41,7 @@ let handleMessage = (question, lat, lng) => {
                         //link usernames to user_id's?
                         //show users to front-end
                     }
-                });*/
-
-                //reurned result could be used to call an emitToAll method in primus
+                });
 
                 break;
             
@@ -65,9 +65,6 @@ let handleMessage = (question, lat, lng) => {
                     let time = "today";
                     getWeatherToday(lat, lng);
                 }
-                
-                
-                //handle a fetch with a weather api for the given location
 
                 break;
 
