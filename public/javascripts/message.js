@@ -54,6 +54,10 @@ class Message{
             e.preventDefault();
         })
 
+        this.primus.on("bot", function(answer){
+            console.log(answer);
+        })
+
 
         //primus on data listener ###TODO###
         this.primus.on("data", function(data){

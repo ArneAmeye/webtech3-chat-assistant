@@ -101,6 +101,7 @@ function getWeatherToday(lat, lng){
 }
 
 function getWeatherTomorrow(lat, lng){
+    
     //build url to fetch
     let url = `https://api.darksky.net/forecast/6c8db87a5cad6ff776ad9d85d14e54aa/${lat},${lng}?units=si`;
         fetch(url)
@@ -112,6 +113,8 @@ function getWeatherTomorrow(lat, lng){
             let forecast = "Tomorrow the weather is " + json.daily.data[1].summary + " with a temperature of MIN: " + json.daily.data[1].temperatureLow + "°C and MAX: " + json.daily.data[1].temperatureHigh;
             console.log(forecast);
             //emit forecast?
+            let primus = require('../primus/live');
+            primus.emitBotResponse(forecast);
         })
         .catch( (err) =>{
             //catch error if any to not block the nodejs process
