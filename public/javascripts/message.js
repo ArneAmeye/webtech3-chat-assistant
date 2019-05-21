@@ -19,7 +19,6 @@ class Message{
         //store this instance in that variable so we can access it later
         let that = this;
 
-
         //init primus websocket on this very own page
         this.primus = Primus.connect("/", {
             reconnect: {
@@ -90,6 +89,10 @@ class Message{
 
                 //add action buttons
                 ShowActions();
+                
+                //scroll to bottom
+                var objDiv = document.querySelector(".messages");
+                objDiv.scrollTop = objDiv.scrollHeight;
             }
 
             if(data.action == "delete"){
@@ -391,6 +394,10 @@ function getAllMessages(){
                 const messagesContainer = document.querySelector(".messages");
                 messagesContainer.appendChild(messageWrapper);
             }
+
+            //scroll to bottom
+            var objDiv = document.querySelector(".messages");
+            objDiv.scrollTop = objDiv.scrollHeight;
        }
 
        //now call the showDeletables function to show edit and delete buttons for your own messages
