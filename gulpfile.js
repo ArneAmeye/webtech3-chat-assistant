@@ -3,6 +3,7 @@ const sass = require('gulp-sass');
 const browserSync = require('browser-sync').create();
 const minify = require('gulp-minify');
 const nodemon = require('gulp-nodemon');
+const tinify = require('gulp-tinify');
 
 
 //compile all SASS to CSS
@@ -25,6 +26,12 @@ function minifyJs(done){
     done();
 }
 
+function tinifyImages(done){
+    src('./public/images/*')
+        .pipe(tinify('PgasWf8IsklGUwKecgO9LHMiPsnfXJgx'))
+        .pipe(dest('./public/images/tinified/'));
+}
+
 
 //start local server via nodemon
 function startNodemon(done){
@@ -40,4 +47,4 @@ function startNodemon(done){
 
 watch("./public/source/sass/**/*.scss", sassToCss) // **/* => elke van deze file in eender van onderliggend mapje */
 
-module.exports.default = series(sassToCss, minifyJs, startNodemon);
+module.exports.default = series(sassToCss, minifyJs, tinifyImages, startNodemon);
