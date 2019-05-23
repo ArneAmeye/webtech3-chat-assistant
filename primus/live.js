@@ -1,10 +1,11 @@
 //SERVER SIDE
-
 const messageModel = require('../models/Message');
 const userModel = require('../models/User');
 
+
 //go function will be called from "www" file in the bin folder!
 let go = function(server) {
+    
     const Primus = require("primus");
     let primus = new Primus(server, {});
     
@@ -20,9 +21,6 @@ let go = function(server) {
             //write data back to all connected users
             primus.write(data);
             
-            //check if user data received to register a user??
-
-            //check if user data received to login a user??
 
         });
 
@@ -31,16 +29,8 @@ let go = function(server) {
 }
 
 let emitBotResponse = function(answer){
-    
-    const Primus = require("primus");
-    const Emitter = require('primus-emitter');
-    let server = require('http').createServer();
-
-    let primus = new Primus(server, {});
-    primus.plugin('emitter', Emitter);
-
-    primus.send('bot', answer);
-    
+    primus.write("botresponse");
+    primus.write(answer);
 
 }
 

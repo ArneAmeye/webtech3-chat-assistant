@@ -53,7 +53,7 @@ class Message{
             e.preventDefault();
         })
 
-        this.primus.on("bot", function(answer){
+        this.primus.on("answer", function(answer){
             console.log(answer);
         })
 
