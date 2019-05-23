@@ -1,12 +1,8 @@
 .sidebar{
-    // border: 1px solid black;
     background-color: $lightGray;
-    //height: 100vh;
 }
 .account{
     width: 95%;
-    // padding: 10px;
-    // margin-right: 20px;
     background-color: $accentGray;
     padding: 0;
     margin: 1em auto 0em auto;
@@ -24,4 +20,32 @@
     color: black;
     text-decoration: none;
     text-align: center;
+}
+.account__login{
+    width: 95%;
+    height: 200px;
+    background-color: $accentGray;
+    padding: 0;
+    margin: 1em auto 0em auto;
+}
+.online{
+    overflow-y: auto;
+}
+.online__friends{
+    font-size: 1.5em;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+.online__friend{
+    width: 95%;
+    border: 1px solid black;
+    margin: 1em auto;
+    padding: 10px;
+}
+.online__username{
+    font-size: 0.9em;
+}
+.online__userpic{
+    margin: 5px;
+    border-radius: 50%;
 }

@@ -1,7 +1,11 @@
+.messages{
+    background-color: $dark;
+    color: #fff;
+    overflow-y: auto;
+}
 .message{
     position: relative;
     border-bottom: 1px solid $accentGray;
-    
 }
 .message__user{
     padding: 10px;
