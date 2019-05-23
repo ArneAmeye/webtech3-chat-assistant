@@ -38,6 +38,11 @@ class Message{
                 //set data (id) of message
                 messageWrapper.dataset.id = data.id;
 
+                //determine timestamp
+                let postedTime = data.timestamp;
+                let time = new Date(postedTime);
+                time = time.toLocaleString();
+
                 //use literal template to add different elements at once (instead of doing multiple createElements)
                 let messageTemplate = ` 
                 <div class="profile flex flex--container">
@@ -46,7 +51,7 @@ class Message{
                 </div>
 
                 <h3 class="message title title--message flex--item">${data.message}</h3>
-                <h5 class="message--time title title--time flex--item">Timestamp here</h5>
+                <h5 class="message--time title title--time flex--item">${time}</h5>
 
                 <div class="iconsWrap flex--item">
                     <img class="icons icons--pen" src="../images/edit.svg" alt="penIcon">
@@ -93,6 +98,11 @@ function getAllMessages(){
 
             //loop over the messages to add them into the UI
             for(i = 0; i < res.data.length; i++){
+
+                //determine timestamp
+                let postedTime = res.data[i].timestamp;
+                let time = new Date(postedTime);
+                time = time.toLocaleString();
             
                 //create messageWrapper div and add it's class
                 let messageWrapper = document.createElement("div");
@@ -108,7 +118,7 @@ function getAllMessages(){
                 </div>
 
                 <h3 class="message title title--message flex--item">${res.data[i].message}</h3>
-                <h5 class="message--time title title--time flex--item">Timestamp here</h5>
+                <h5 class="message--time title title--time flex--item">${time}</h5>
 
                 <div class="iconsWrap flex--item">
                     <img class="icons icons--pen" src="../images/edit.svg" alt="penIcon">
