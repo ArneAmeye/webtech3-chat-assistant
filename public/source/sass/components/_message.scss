@@ -3,53 +3,45 @@
     border-bottom: 1px solid $accentGray;
     
 }
-.message--user{
+.message__user{
     padding: 10px;
     margin-right: 20px;
 }
-.message--userpic{
+.message__userpic{
     margin: 10px;
     border-radius: 50%;
 }
-.message--username{
+.message__username{
     font-size: 0.9em;
 }
-.message--content{
+.message__content{
     font-size: 1.1em;
 }
-.message--content__deleted{
+.message--deleted{
     color: $darkRed;
 }
-.message--time{
+.message__time{
     position: absolute;
     right: 25px;
     top: 10px;
+    font-size: 0.7em;
 }
-.message--icons{
+.icons{
     position: absolute;
     right: 25px;
     bottom: 10px;
     // display: none;
 }
-.message--icon{
+.icons__icon{
     width: 25px;
     height: 25px;
     margin: 10px;
     padding: 0.2em;
     border-radius: 100%;
 }
-
-.message--icon__pen{
+.icons--pen{
     background-color: #fff;
 }
-
-.message--icon__trash{
+.icons--trash{
     background-color: $darkRed;
-}
-
-.messageSend{
-    //width: 70%;
-    //height: 60px;
-    //position: fixed;
-    bottom: 0;
 }

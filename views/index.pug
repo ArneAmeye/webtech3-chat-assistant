@@ -7,20 +7,26 @@ block content
     div.messages.grid--item.grid--content-item-a
     
       div.message.flex.flex--container
-        div.message--user.flex.flex--container
-          img.message--userpic.flex--item(src="https://api.adorable.io/avatars/75/abott@adorable.png" alt="profPic")
-          h4.message--username.flex--item Wesley Wijsen
-        h3.message--content.title.title--message.flex--item Dit is mijn bericht!
-        h5.message--time.title.title--time.flex--item Gisteren om 22u30
-        div.message--icons.flex--item
-          img.message--icon.message--icon__pen.icons--pen(src="../images/edit.svg" alt="penIcon")
-          img.message--icon.message--icon__trash(src="../images/delete.svg" alt="trashIcon")
+        div.message__user.flex.flex--container
+          img.message__userpic.flex--item(src="https://api.adorable.io/avatars/75/abott@adorable.png" alt="profPic")
+          h4.message__username.flex--item Wesley Wijsen
+
+        h3.message__content.flex--item Dit is mijn bericht!
+        h5.message__time.title.title--time.flex--item Gisteren om 22u30
+
+        div.icons.flex--item
+          img.icons__icon.icons--pen(src="../images/edit.svg" alt="penIcon")
+          img.icons__icon.icons--trash(src="../images/delete.svg" alt="trashIcon")
+
     div.sidebar.grid.grid--sidebar.grid--item.grid--content-item-b
-      div.profile.profile--me.grid.grid--profile.grid--sidebar-item-a
-        img.profpic.profpic--me.grid--profile-item-a(src="https://api.adorable.io/avatars/85/abott@adorable.png" alt="profPic")
-        h4.title.title--name-me.grid--profile-item-b 
-        a.link.title.grid--profile-item-c(href="./profile") Edit profile
+
+      div.account.grid.grid--profile.grid--sidebar-item-a
+
+        img.account__userpic.grid--profile-item-a(src="https://api.adorable.io/avatars/85/abott@adorable.png" alt="profPic")
+        h4.account__username.grid--profile-item-b 
+        a.account__link.grid--profile-item-c(href="./profile") Edit profile
         input.btn.btn--logout.grid--profile-item-d(type='submit' value='Log out')
+
       div.online.grid--sidebar-item-b
 
         h2.title.title--friends.flex--item Online friends
