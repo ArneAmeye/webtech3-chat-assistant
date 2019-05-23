@@ -75,12 +75,18 @@ let getId = (req, res, next) => {
 //POST callback for adding a message
 let post = (req, res, next) => {
     
+    //get time of posting
+    let d = new Date();
+    let time = d.getTime();
+    console.log(time);
+
     console.log(req.user);
     //write this new message to our MongoDB
     let m = new messageModel();
     m.message = req.body.message;
     m.username = req.user.username;
     m.user_id = req.user._id;
+    m.timestamp = time;
     m.save((err, doc) =>{
         //handle error if there is any (don't block the thread!)
         if( err){

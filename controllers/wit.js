@@ -3,6 +3,10 @@ const wit = require('../wit/wit');
 
 let post = (req, res, next) => {
 
+    //get time of posting
+    let d = new Date();
+    let time = d.getTime();
+
     //get values from req body (question and geodata)
     let question = req.body.message;
     let lat = req.body.lat;
@@ -18,6 +22,7 @@ let post = (req, res, next) => {
         m.message = answer;
         m.username = "Bot";
         m.user_id = "5ce703c07a18415350da583a";
+        m.timestamp = time;
         m.save((err, doc) =>{
             //handle error if there is any (don't block the thread!)
             if( err){
