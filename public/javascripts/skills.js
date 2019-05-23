@@ -1,12 +1,11 @@
 // CLIENT-SIDE
 window.addEventListener("load", getAllSkills());
 
-let saveSkill = document.querySelector(".skills").addEventListener("change", e => {
-    if(e.target.classList.contains("skill")){
+let saveSkill = document.querySelector(".profile__skills").addEventListener("change", e => {
+    if(e.target.classList.contains("profile__skill")){
         let skill = e.target.getAttribute("data-skill");
-        //console.log(skill);
+        
         if( e.target.getAttribute("data-edited") == 0 ){
-            console.log("save");
             fetch('http://localhost:3000/users/profile/' + skill, {
                 method: "post",
                 headers: {
@@ -26,7 +25,7 @@ let saveSkill = document.querySelector(".skills").addEventListener("change", e =
                 console.log(err);
             })
         }else{
-            console.log("update");
+            
             fetch('http://localhost:3000/users/profile/' + skill, {
                 method: "delete",
                 headers: {
