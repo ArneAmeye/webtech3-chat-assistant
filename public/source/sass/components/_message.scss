@@ -1,20 +1,37 @@
-.messageWrapper{
+.message{
     position: relative;
     border-bottom: 1px solid $accentGray;
     
+}
+.message--user{
+    padding: 10px;
+    margin-right: 20px;
+}
+.message--userpic{
+    margin: 10px;
+    border-radius: 50%;
+}
+.message--username{
+    font-size: 0.9em;
+}
+.message--content{
+    font-size: 1.1em;
+}
+.message--content__deleted{
+    color: $darkRed;
 }
 .message--time{
     position: absolute;
     right: 25px;
     top: 10px;
 }
-.iconsWrap{
+.message--icons{
     position: absolute;
     right: 25px;
     bottom: 10px;
-    display: none;
+    // display: none;
 }
-.icons{
+.message--icon{
     width: 25px;
     height: 25px;
     margin: 10px;
@@ -22,11 +39,11 @@
     border-radius: 100%;
 }
 
-.icons--pen{
+.message--icon__pen{
     background-color: #fff;
 }
 
-.icons--trash{
+.message--icon__trash{
     background-color: $darkRed;
 }
 

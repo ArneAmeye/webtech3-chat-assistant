@@ -58,6 +58,10 @@ class Message{
 
                 //finally append the messageWrapper to the messagesContainer
                 messagesContainer.appendChild(messageWrapper);
+
+                //scroll to bottom
+                var objDiv = document.querySelector(".messages");
+                objDiv.scrollTop = objDiv.scrollHeight;
             }
 
 
@@ -118,6 +122,10 @@ function getAllMessages(){
                 const messagesContainer = document.querySelector(".messages");
                 messagesContainer.appendChild(messageWrapper);
             }
+
+             //scroll to bottom
+             var objDiv = document.querySelector(".messages");
+             objDiv.scrollTop = objDiv.scrollHeight;
        }
 
     });

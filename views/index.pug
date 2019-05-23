@@ -1,17 +1,20 @@
 extends layout
 
 block content
+
   div.container.grid.grid--content
+
     div.messages.grid--item.grid--content-item-a
-      div.messageWrapper.flex.flex--container
-        div.profile.flex.flex--container
-          img.profpic.flex--item(src="https://api.adorable.io/avatars/75/abott@adorable.png" alt="profPic")
-          h4.title.title--name.flex--item Wesley Wijsen
-        h3.message.title.title--message.flex--item Dit is mijn bericht!
+    
+      div.message.flex.flex--container
+        div.message--user.flex.flex--container
+          img.message--userpic.flex--item(src="https://api.adorable.io/avatars/75/abott@adorable.png" alt="profPic")
+          h4.message--username.flex--item Wesley Wijsen
+        h3.message--content.title.title--message.flex--item Dit is mijn bericht!
         h5.message--time.title.title--time.flex--item Gisteren om 22u30
-        div.iconsWrap.flex--item
-          img.icons.icons--pen(src="../images/edit.svg" alt="penIcon")
-          img.icons.icons--trash(src="../images/delete.svg" alt="trashIcon")
+        div.message--icons.flex--item
+          img.message--icon.message--icon__pen.icons--pen(src="../images/edit.svg" alt="penIcon")
+          img.message--icon.message--icon__trash(src="../images/delete.svg" alt="trashIcon")
     div.sidebar.grid.grid--sidebar.grid--item.grid--content-item-b
       div.profile.profile--me.grid.grid--profile.grid--sidebar-item-a
         img.profpic.profpic--me.grid--profile-item-a(src="https://api.adorable.io/avatars/85/abott@adorable.png" alt="profPic")
