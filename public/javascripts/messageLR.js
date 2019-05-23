@@ -68,6 +68,44 @@ class Message{
                 var objDiv = document.querySelector(".messages");
                 objDiv.scrollTop = objDiv.scrollHeight;
             }
+            if(data.action == "delete"){
+                console.log(data);
+                //get the specific message that was deleted
+                let deletedMessage = document.querySelector(`[data-id="${data.messageId}"]`);
+                //show to all users that this message was deleted
+                deletedMessage.querySelector(".message__content").innerHTML = "This message is deleted by it's user";
+                deletedMessage.querySelector(".message__content").classList.add("message--deleted");
+            }
+
+            if(data.action == "update"){
+                console.log(data);
+                //get the specific message that was updated
+                let updatedMessage = document.querySelector(`[data-id="${data.messageId}"]`);
+                //show to all users that this message was updated
+                data.updatedMessage += " (edited)";
+                updatedMessage.querySelector(".message__content").innerHTML = data.updatedMessage;
+                updatedMessage.querySelector(".message__content").style.fontStyle = "italic";
+                
+            }
+
+            //new user logged on, show to all other users!
+            if(data.action == "liveUser"){  // & data.username !== localStorage.getItem("username")
+                let userElement = document.createElement('div');
+                userElement.classList.add('online__friend', 'flex', 'flex--container');
+                userElement.dataset.username = data.username;
+                let userTemplate = `
+                    <img class="online__userpic flex--item" src="https://api.adorable.io/avatars/75/abott@adorable.png" alt="profPic">
+                    <h4 class="online__username flex--item">${data.username}</h4>
+                `;
+                userElement.innerHTML = userTemplate;
+                document.querySelector(".online").appendChild(userElement);
+            }
+
+            //a user leaves the chat (logout), show to all other users!
+            if(data.action == "liveUserGone"){
+                let userElement = document.querySelector(`[data-username="${data.username}"]`)
+                userElement.parentNode.removeChild(userElement);
+            }
 
 
         });
