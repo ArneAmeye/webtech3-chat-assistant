@@ -2,34 +2,46 @@ extends layout
 
 block content
   div.container.grid.grid--content
+
     div.messages.grid--item.grid--content-item-a
-      div.messageWrapper.flex.flex--container
-        div.profile.flex.flex--container
-          img.profpic.flex--item(src="https://api.adorable.io/avatars/75/abott@adorable.png" alt="profPic")
-          h4.title.title--name.flex--item Wesley Wijsen
-        h3.message.title.title--message.flex--item Dit is mijn bericht!
-        h5.message--time.title.title--time.flex--item Gisteren om 22u30
-        div.iconsWrap.flex--item
-          img.icons.icons--pen(src="../images/edit.svg" alt="penIcon")
-          img.icons.icons--trash(src="../images/delete.svg" alt="trashIcon")
+
+      div.message.flex.flex--container
+        div.message__user.flex.flex--container
+          img.message__userpic.flex--item(src="https://api.adorable.io/avatars/75/abott@adorable.png" alt="profPic")
+          h4.message__username.flex--item Wesley Wijsen
+
+        h3.message__content.flex--item Dit is mijn bericht!
+        h5.message__time.title.title--time.flex--item Gisteren om 22u30
+
+        div.icons.flex--item
+          img.icons__icon.icons--pen(src="../images/edit.svg" alt="penIcon")
+          img.icons__icon.icons--trash(src="../images/delete.svg" alt="trashIcon")
+
     div.sidebar.grid.grid--sidebar.grid--item.grid--content-item-b
-      div.profile.profile--login.grid.grid--login.grid--sidebar-item-a
-        input.input.input--username#myUsername.grid--login-item-a(type='text', placeholder='Your username' name='username')
-        input.input.input--password#myPassword.grid--login-item-b(type='password', placeholder='Your password' name='password')
+
+      div.account__login.grid.grid--login.grid--sidebar-item-a
+
+        input.input--username#myUsername.grid--login-item-a(type='text', placeholder='Your username' name='username')
+        input.input--password#myPassword.grid--login-item-b(type='password', placeholder='Your password' name='password')
         input.btn.btn--login.grid--login-item-c(type='submit' value='Log In')
-        a.link.title.grid--login-item-d(href="./register") I still need an account!
+        a.account__link.grid--login-item-d(href="./register") I still need an account!
+
       div.online.grid--sidebar-item-b
 
-        h2.title.title--friends.flex--item Online People
-        div.profile.profile--friends.flex.flex--container
-          img.profpic.flex--item(src="https://api.adorable.io/avatars/75/abott@adorable.png" alt="profPic")
-          h4.title.title--name.flex--item Arne Ameye
-        div.profile.profile--friends.flex.flex--container
-          img.profpic.flex--item(src="https://api.adorable.io/avatars/75/abott@adorable.png" alt="profPic")
-          h4.title.title--name.flex--item Arne Ameye
-        div.profile.profile--friends.flex.flex--container
-          img.profpic.flex--item(src="https://api.adorable.io/avatars/75/abott@adorable.png" alt="profPic")
-          h4.title.title--name.flex--item Arne Ameye
+        h2.online__friends.flex--item Online People
+
+        div.online__friend.flex.flex--container
+          img.online__userpic.flex--item(src="https://api.adorable.io/avatars/75/abott@adorable.png" alt="profPic")
+          h4.online__username.flex--item Arne Ameye
+
+        div.online__friend.flex.flex--container
+          img.online__userpic.flex--item(src="https://api.adorable.io/avatars/75/abott@adorable.png" alt="profPic")
+          h4.online__username.flex--item Arne Ameye
+
+        div.online__friend.flex.flex--container
+          img.online__userpic.flex--item(src="https://api.adorable.io/avatars/75/abott@adorable.png" alt="profPic")
+          h4.online__username.flex--item Arne Ameye
+      
           
     div.messageSend.grid--item.grid--content-item-a
       input.input.input--message#myMessage(type='text', placeholder='Your message' name='message')

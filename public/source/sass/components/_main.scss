@@ -1,11 +1,7 @@
 .container{
     width: 100vw;
     height: 100vh;
-}
-.messages{
-    background-color: $dark;
-    color: #fff;
-    overflow-y: auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .messageSend{
     width: 100%;
@@ -18,7 +14,9 @@
     background-color: $lightGray;
     //height: 100vh;
 }
-
-.online{
-    overflow-y: auto;
+.messageSend{
+    //width: 70%;
+    //height: 60px;
+    //position: fixed;
+    bottom: 0;
 }

@@ -1,0 +1,51 @@
+.sidebar{
+    background-color: $lightGray;
+}
+.account{
+    width: 95%;
+    background-color: $accentGray;
+    padding: 0;
+    margin: 1em auto 0em auto;
+}
+.account__userpic{
+    border-radius: 50%;
+    background-color: $accentGray;
+    padding: 0;
+    margin: 0.5em auto 0.5em auto;
+}
+.account__username{
+    font-size: 1.1em;
+}
+.account__link{
+    color: black;
+    text-decoration: none;
+    text-align: center;
+}
+.account__login{
+    width: 95%;
+    height: 200px;
+    background-color: $accentGray;
+    padding: 0;
+    margin: 1em auto 0em auto;
+}
+.online{
+    overflow-y: auto;
+}
+.online__friends{
+    font-size: 1.5em;
+    margin-top: 15px;
+    margin-left: 15px;
+}
+.online__friend{
+    width: 95%;
+    border: 1px solid black;
+    margin: 1em auto;
+    padding: 10px;
+}
+.online__username{
+    font-size: 0.9em;
+}
+.online__userpic{
+    margin: 5px;
+    border-radius: 50%;
+}

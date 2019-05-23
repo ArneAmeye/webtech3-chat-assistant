@@ -5,7 +5,7 @@ class Message{
     constructor(){
         //check if user has a token
         if(localStorage.getItem('token') == null){
-            document.location.href = "http://localhost:3000/login";
+            document.location.href = "/login";
         }
 
         //show all messages
@@ -53,7 +53,7 @@ class Message{
             e.preventDefault();
         })
 
-        this.primus.on("bot", function(answer){
+        this.primus.on("answer", function(answer){
             console.log(answer);
         })
 
