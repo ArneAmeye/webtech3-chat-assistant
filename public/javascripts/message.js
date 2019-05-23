@@ -154,7 +154,7 @@ class Message{
                 localStorage.setItem("lat", position.coords.latitude);
                 localStorage.setItem("lng", position.coords.longitude);
             });
-            botAsked(myMessage);
+            
             //send message over our API
             fetch('/api/v1/messages', {
                 method: 'post',
@@ -186,6 +186,19 @@ class Message{
 
             });
 
+            //check if bot is asked a message, if it is, this will return the answer and send it over Primus websocket.
+            botAsked(myMessage, function(err, res){
+                //send the message over websocket
+                that.primus.write({
+                    "message": res.message.message,
+                    "username": res.message.username,
+                    "user_id": res.message.user_id,
+                    "id": res.message._id
+                });
+            });
+            
+            
+
             //clear the chatbox (so we can send more messages!)
             messageInput.value = "";
 
@@ -210,7 +223,16 @@ class Message{
                     localStorage.setItem("lng", position.coords.longitude);
                 });
 
-                botAsked(myMessage);
+                //check if bot is asked a message, if it is, this will return the answer and send it over Primus websocket.
+                botAsked(myMessage, function(err, res){
+                    //send the message over websocket
+                    that.primus.write({
+                        "message": res.message.message,
+                        "username": res.message.username,
+                        "user_id": res.message.user_id,
+                        "id": res.message._id
+                    });
+                });
 
                 //send message over our API
                 fetch('/api/v1/messages', {
@@ -438,7 +460,7 @@ function ShowActions(){
     }
 }
 
-function botAsked(myMessage){
+function botAsked(myMessage, callback){
     
     //check if @bot is at start of this message
     if(myMessage.indexOf("@bot") == 0 ){
@@ -460,19 +482,12 @@ function botAsked(myMessage){
         .then(res=>res.json())
         .then(res => {
             console.log(res);
-            /*
+            
             //check if message posted successfully
            if(res['status'] == "success"){
 
-                //send the message over websocket
-                that.primus.write({
-                    "action": "botResponse",
-                    "message": res.message.message,
-                    "username": "bot",
-                    "user_id": "0",
-                    "id": res.message._id
-                });
-           } */
+                callback(null, res);
+           }
 
         });
     }

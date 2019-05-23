@@ -13,11 +13,29 @@ let post = (req, res, next) => {
         let answer = response;
         console.log(answer);
 
-        res.json({
-            "status": "bot success",
-            "bot": answer/*,
-            "message": doc*/
+        //write this Bot message to our MongoDB
+        let m = new messageModel();
+        m.message = answer;
+        m.username = "Bot";
+        m.user_id = "5ce703c07a18415350da583a";
+        m.save((err, doc) =>{
+            //handle error if there is any (don't block the thread!)
+            if( err){
+                res.json({
+                    "status": "error",
+                    "message": err.message
+                });
+            }
+            //if no errors, go ahead and do your job!
+            if(!err){
+                res.json({
+                    "status": "success",
+                    "message": doc
+                });
+                
+            }
         });
+
 
     });
     
