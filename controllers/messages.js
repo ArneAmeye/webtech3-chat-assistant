@@ -95,14 +95,7 @@ let post = (req, res, next) => {
                 "status": "success",
                 "message": doc
             });
-
-            //check if @bot is at the start of the message
-            if(req.body.message.indexOf("@bot") == 0){
-                let question = req.body.message;
-                let lat = req.body.lat;
-                let lng = req.body.lng;
-                wit.handleMessage(question, lat, lng);
-            }
+            
         }
     });
 

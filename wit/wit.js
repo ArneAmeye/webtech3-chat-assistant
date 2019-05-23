@@ -8,7 +8,7 @@ const client = new Wit({
 });
 
 
-let handleMessage = (question, lat, lng) => {
+let handleMessage = (question, lat, lng, callback) => {
 
     //replace @bot in the sentence with nothing so we keep just the question
     question = question.replace("@bot", "");
@@ -69,7 +69,8 @@ let handleMessage = (question, lat, lng) => {
                                 }
                                 //build your answer
                                 let answer = skillSearched + " is known by: " + users;
-                                console.log(answer);
+                                //console.log(answer);
+                                callback(null, answer);
                             }
                         });
                         
@@ -89,15 +90,24 @@ let handleMessage = (question, lat, lng) => {
                     
                     //do different lookup for today than for tomorrow
                     if (time == 'today'){
-                        getWeatherToday(lat,lng);
+                        getWeatherToday(lat,lng, function(err, res){
+                            let forecast = res;
+                            callback(null, forecast);
+                        });
+                        
                     }else{
-                        getWeatherTomorrow(lat,lng)
+                        getWeatherTomorrow(lat,lng, function(err, res){
+                            let forecast = res;
+                            callback(null, forecast);
+                        })
                     }
 
                 }else{
                     //default time is today/now, search weather for current day
-                    let time = "today";
-                    getWeatherToday(lat, lng);
+                    getWeatherToday(lat, lng, function(err, res){
+                        let forecast = res;
+                        callback(null, forecast);
+                    });
                 }
 
                 break;
@@ -112,7 +122,7 @@ let handleMessage = (question, lat, lng) => {
 }
 
 
-function getWeatherToday(lat, lng){
+function getWeatherToday(lat, lng, callback){
     //build url to fetch
     let url = `https://api.darksky.net/forecast/6c8db87a5cad6ff776ad9d85d14e54aa/${lat},${lng}?units=si`;
         fetch(url)
@@ -122,8 +132,7 @@ function getWeatherToday(lat, lng){
         .then(json => {
 
             let forecast = "The weather is " + json.currently.summary + " with a temperature of " + json.currently.temperature + "°C";
-            console.log(forecast);
-            //emit forecast?
+            callback(null, forecast);
         })
         .catch( (err) =>{
             //catch error if any to not block the nodejs process
@@ -131,7 +140,7 @@ function getWeatherToday(lat, lng){
         })
 }
 
-function getWeatherTomorrow(lat, lng){
+function getWeatherTomorrow(lat, lng, callback){
     
     //build url to fetch
     let url = `https://api.darksky.net/forecast/6c8db87a5cad6ff776ad9d85d14e54aa/${lat},${lng}?units=si`;
@@ -142,10 +151,7 @@ function getWeatherTomorrow(lat, lng){
         .then(json => {
 
             let forecast = "Tomorrow the weather is " + json.daily.data[1].summary + " with a temperature of MIN: " + json.daily.data[1].temperatureLow + "°C and MAX: " + json.daily.data[1].temperatureHigh;
-            console.log(forecast);
-            //emit forecast?
-            let primus = require('../primus/live');
-            primus.emitBotResponse(forecast);
+            callback(null, forecast);
         })
         .catch( (err) =>{
             //catch error if any to not block the nodejs process

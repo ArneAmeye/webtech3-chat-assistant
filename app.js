@@ -9,6 +9,7 @@ const passport = require('./passport/passport');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const apiMessagesRouter = require('./routes/messages');
+const apiWitRouter = require('./routes/wit');
 
 var app = express();
 
@@ -31,6 +32,7 @@ app.use(cors());
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/v1/messages', apiMessagesRouter);
+app.use('/api/v1/wit', apiWitRouter);
 
 //init passport.js and passport sessions middleware
 app.use(passport.initialize());
