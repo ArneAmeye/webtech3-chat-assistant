@@ -150,7 +150,7 @@ function getWeatherTomorrow(lat, lng, callback){
         })
         .then(json => {
 
-            let forecast = "Tomorrow the weather is " + json.daily.data[1].summary + " with a temperature of MIN: " + json.daily.data[1].temperatureLow + "°C and MAX: " + json.daily.data[1].temperatureHigh;
+            let forecast = "Tomorrow the weather is " + json.daily.data[1].summary + " with a temperature of MIN: " + json.daily.data[1].temperatureLow + "°C and MAX: " + json.daily.data[1].temperatureHigh + "°C";
             callback(null, forecast);
         })
         .catch( (err) =>{
