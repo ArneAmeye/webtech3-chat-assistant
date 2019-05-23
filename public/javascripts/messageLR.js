@@ -34,7 +34,7 @@ class Message{
             if(data.message){
                 //create messageWrapper div and add it's class
                 let messageWrapper = document.createElement("div");
-                messageWrapper.classList.add("messageWrapper", "flex", "flex--container");
+                messageWrapper.classList.add("message", "flex", "flex--container");
                 //set data (id) of message
                 messageWrapper.dataset.id = data.id;
 
@@ -45,17 +45,17 @@ class Message{
 
                 //use literal template to add different elements at once (instead of doing multiple createElements)
                 let messageTemplate = ` 
-                <div class="profile flex flex--container">
-                    <img class="profpic flex--item" src="https://fakeimg.pl/75x75/" alt="profPic">
-                    <h4 class="title title--name flex--item" data-user_id="${data.user_id}">${data.username}</h4>
+                <div class="message__user flex flex--container">
+                    <img class="message__userpic flex--item" src="https://fakeimg.pl/75x75/" alt="profPic">
+                    <h4 class="message__username flex--item" data-user_id="${data.user_id}">${data.username}</h4>
                 </div>
 
-                <h3 class="message title title--message flex--item">${data.message}</h3>
-                <h5 class="message--time title title--time flex--item">${time}</h5>
+                <h3 class="message__content title title--message flex--item">${data.message}</h3>
+                <h5 class="message__time title title--time flex--item">${time}</h5>
 
-                <div class="iconsWrap flex--item">
-                    <img class="icons icons--pen" src="../images/edit.svg" alt="penIcon">
-                    <img class="icons icons--trash" src="../images/delete.svg" alt="trashIcon">
+                <div class="icons flex--item">
+                    <img class="icons__icon icons--pen" src="../images/edit.svg" alt="penIcon">
+                    <img class="icons__icon icons--trash" src="../images/delete.svg" alt="trashIcon">
                 </div>
                 `;
                 //add the chat template inside the messageContainer
@@ -106,23 +106,23 @@ function getAllMessages(){
             
                 //create messageWrapper div and add it's class
                 let messageWrapper = document.createElement("div");
-                messageWrapper.classList.add("messageWrapper","flex", "flex--container");
+                messageWrapper.classList.add("message","flex", "flex--container");
                 //set data (id) of the message
                 messageWrapper.dataset.id = res.data[i]._id;
 
                 //use literal template to add different elements at once (instead of doing multiple createElements)
                 let messageTemplate = ` 
-                <div class="profile flex flex--container">
-                    <img class="profpic flex--item" src="https://fakeimg.pl/75x75/" alt="profPic">
-                    <h4 class="title title--name flex--item" data-user_id="${res.data[i].user_id}">${res.data[i].username}</h4>
+                <div class="message__user flex flex--container">
+                    <img class="message__userpic flex--item" src="https://fakeimg.pl/75x75/" alt="profPic">
+                    <h4 class="message__username flex--item" data-user_id="${res.data[i].user_id}">${res.data[i].username}</h4>
                 </div>
 
-                <h3 class="message title title--message flex--item">${res.data[i].message}</h3>
-                <h5 class="message--time title title--time flex--item">${time}</h5>
+                <h3 class="message__content flex--item">${res.data[i].message}</h3>
+                <h5 class="message__time title title--time flex--item">${time}</h5>
 
-                <div class="iconsWrap flex--item">
-                    <img class="icons icons--pen" src="../images/edit.svg" alt="penIcon">
-                    <img class="icons icons--trash" src="../images/delete.svg" alt="trashIcon">
+                <div class="icons flex--item">
+                    <img class="icons__icon icons--pen" src="../images/edit.svg" alt="penIcon">
+                    <img class="icons__icon icons--trash" src="../images/delete.svg" alt="trashIcon">
                 </div>
                 `;
                 //add the chat template inside the messageContainer

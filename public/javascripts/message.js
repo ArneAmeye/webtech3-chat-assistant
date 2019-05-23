@@ -30,7 +30,7 @@ class Message{
 
         //set username in sidebar
         let myUsername = localStorage.getItem("username");
-        document.querySelector(".title--name-me").innerHTML = myUsername;
+        document.querySelector(".account__username").innerHTML = myUsername;
 
         //logout on clicking logout btn
         let logoutBtn = document.querySelector(".btn--logout");
@@ -66,7 +66,7 @@ class Message{
             if(data.message){
                 //create messageWrapper div and add it's class
                 let messageWrapper = document.createElement("div");
-                messageWrapper.classList.add("messageWrapper", "flex", "flex--container");
+                messageWrapper.classList.add("message", "flex", "flex--container");
                 //set data (id) of message
                 messageWrapper.dataset.id = data.id;
 
@@ -77,17 +77,17 @@ class Message{
 
                 //use literal template to add different elements at once (instead of doing multiple createElements)
                 let messageTemplate = ` 
-                <div class="profile flex flex--container">
-                    <img class="profpic flex--item" src="https://fakeimg.pl/75x75/" alt="profPic">
-                    <h4 class="title title--name flex--item" data-user_id="${data.user_id}">${data.username}</h4>
+                <div class="message__user flex flex--container">
+                    <img class="message__userpic flex--item" src="https://fakeimg.pl/75x75/" alt="profPic">
+                    <h4 class="message_username flex--item" data-user_id="${data.user_id}">${data.username}</h4>
                 </div>
 
-                <h3 class="message title title--message flex--item">${data.message}</h3>
-                <h5 class="message--time title title--time flex--item">${time}</h5>
+                <h3 class="message__content flex--item">${data.message}</h3>
+                <h5 class="message__time title title--time flex--item">${time}</h5>
 
-                <div class="iconsWrap flex--item">
-                    <img class="icons icons--pen" src="../images/edit.svg" alt="penIcon">
-                    <img class="icons icons--trash" src="../images/delete.svg" alt="trashIcon">
+                <div class="icons flex--item">
+                    <img class="icons__icon icons--pen" src="../images/edit.svg" alt="penIcon">
+                    <img class="icons__icon icons--trash" src="../images/delete.svg" alt="trashIcon">
                 </div>
                 `;
                 //add the chat template inside the messageContainer
@@ -109,8 +109,8 @@ class Message{
                 //get the specific message that was deleted
                 let deletedMessage = document.querySelector(`[data-id="${data.messageId}"]`);
                 //show to all users that this message was deleted
-                deletedMessage.querySelector(".title--message").innerHTML = "This message is deleted by it's user";
-                deletedMessage.querySelector(".title--message").classList.add("title--message--deleted");
+                deletedMessage.querySelector(".message__content").innerHTML = "This message is deleted by it's user";
+                deletedMessage.querySelector(".message__content").classList.add("message--deleted");
             }
 
             if(data.action == "update"){
@@ -119,19 +119,19 @@ class Message{
                 let updatedMessage = document.querySelector(`[data-id="${data.messageId}"]`);
                 //show to all users that this message was updated
                 data.updatedMessage += " (edited)";
-                updatedMessage.querySelector(".title--message").innerHTML = data.updatedMessage;
-                updatedMessage.querySelector(".title--message").style.fontStyle = "italic";
+                updatedMessage.querySelector(".message__content").innerHTML = data.updatedMessage;
+                updatedMessage.querySelector(".message__content").style.fontStyle = "italic";
                 
             }
 
             //new user logged on, show to all other users!
             if(data.action == "liveUser"){  // & data.username !== localStorage.getItem("username")
                 let userElement = document.createElement('div');
-                userElement.classList.add('profile', 'profile--friends', 'flex', 'flex--container');
+                userElement.classList.add('online__friend', 'flex', 'flex--container');
                 userElement.dataset.username = data.username;
                 let userTemplate = `
-                    <img class="profpic flex--item" src="https://api.adorable.io/avatars/75/abott@adorable.png" alt="profPic">
-                    <h4 class="title title--name flex--item">${data.username}</h4>
+                    <img class="online__userpic flex--item" src="https://api.adorable.io/avatars/75/abott@adorable.png" alt="profPic">
+                    <h4 class="online__username flex--item">${data.username}</h4>
                 `;
                 userElement.innerHTML = userTemplate;
                 document.querySelector(".online").appendChild(userElement);
@@ -336,7 +336,7 @@ class Message{
                 //get the message element and convert to an inputfield
                 let messageElement = e.target.parentElement.previousElementSibling.previousElementSibling;
                 let EditField = document.createElement('input');
-                EditField.classList.add('message', 'title', 'title-message', 'flex--item', 'input', 'input--message');
+                EditField.classList.add('message__content', 'flex--item', 'input');
                 EditField.value = messageElement.innerHTML;
                 messageElement.parentNode.replaceChild(EditField,messageElement);
                 
@@ -367,7 +367,7 @@ class Message{
 
                                 //convert the input field back to the regular message element
                                 let messageElement = document.createElement("h3");
-                                messageElement.classList.add('message', 'title', 'title--message', 'flex--item' );
+                                messageElement.classList.add('message__content', 'flex--item' );
                                 messageElement.innerHTML = EditField.value;
                                 EditField.parentNode.replaceChild(messageElement, EditField);
 
@@ -425,23 +425,23 @@ function getAllMessages(){
             
                 //create messageWrapper div and add it's class
                 let messageWrapper = document.createElement("div");
-                messageWrapper.classList.add("messageWrapper","flex", "flex--container");
+                messageWrapper.classList.add("message","flex", "flex--container");
                 //set data (id) of the message
                 messageWrapper.dataset.id = res.data[i]._id;
 
                 //use literal template to add different elements at once (instead of doing multiple createElements)
                 let messageTemplate = ` 
-                <div class="profile flex flex--container">
-                    <img class="profpic flex--item" src="https://fakeimg.pl/75x75/" alt="profPic">
-                    <h4 class="title title--name flex--item" data-user_id="${res.data[i].user_id}">${res.data[i].username}</h4>
+                <div class="message__user flex flex--container">
+                    <img class="message__userpic flex--item" src="https://fakeimg.pl/75x75/" alt="profPic">
+                    <h4 class="message__username flex--item" data-user_id="${res.data[i].user_id}">${res.data[i].username}</h4>
                 </div>
 
-                <h3 class="message title title--message flex--item">${res.data[i].message}</h3>
-                <h5 class="message--time title title--time flex--item">${time}</h5>
+                <h3 class="message__content flex--item">${res.data[i].message}</h3>
+                <h5 class="message__time title title--time flex--item">${time}</h5>
 
-                <div class="iconsWrap flex--item">
-                    <img class="icons icons--pen" src="../images/edit.svg" alt="penIcon">
-                    <img class="icons icons--trash" src="../images/delete.svg" alt="trashIcon">
+                <div class="icons flex--item">
+                    <img class="icons__icon icons--pen" src="../images/edit.svg" alt="penIcon">
+                    <img class="icons__icon icons--trash" src="../images/delete.svg" alt="trashIcon">
                 </div>
                 `;
                 //add the chat template inside the messageContainer
@@ -469,7 +469,7 @@ function ShowActions(){
     
     //loop over the users messages and show the edit and delete buttons
     for(i = 0; i < myMessages.length; i++){
-        let thisActions = myMessages[i].parentElement.parentElement.querySelector(".iconsWrap");
+        let thisActions = myMessages[i].parentElement.parentElement.querySelector(".icons");
         thisActions.style.display = "block";
     }
 }
