@@ -12,7 +12,7 @@ let loginBtn = document.querySelector('.btn--login').addEventListener("click", (
     });
 
     //do login fetch
-    fetch('http://localhost:3000/users/login', {
+    fetch('/users/login', {
         method: "post",
         headers: {
             'Content-Type': 'application/json'

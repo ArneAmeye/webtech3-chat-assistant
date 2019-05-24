@@ -12,7 +12,7 @@ let registerBtn = document.querySelector('.btn--register').addEventListener("cli
     });
 
     //do register fetch
-    fetch('http://localhost:3000/users/signup', {
+    fetch('/users/signup', {
         method: "post",
         headers: {
             'Content-Type': 'application/json'
