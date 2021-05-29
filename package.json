@@ -25,7 +25,7 @@
     "primus": "^7.3.2",
     "primus-emitter": "^3.1.1",
     "pug": "^2.0.3",
-    "ws": "^7.0.0"
+    "ws": "^7.4.6"
   },
   "devDependencies": {
     "browser-sync": "^2.26.5",
